@@ -15,6 +15,8 @@ init();
 
 // animation loop / game loop
 animate();
+
+
 			
 function init() 
 {
@@ -60,64 +62,44 @@ function init()
 	light.position.set(0,250,0);
 	scene.add(light);
 	var ambientLight = new THREE.AmbientLight(0x111111);
-	// scene.add(ambientLight);
+	 scene.add(ambientLight);
 	
-	//////////////
-	// GEOMETRY //
-	//////////////
-		
-	// most objects displayed are a "mesh":
-	//  a collection of points ("geometry") and
-	//  a set of surface parameters ("material")	
 
-	// Sphere parameters: radius, segments along width, segments along height
-	var sphereGeometry = new THREE.SphereGeometry( 50, 32, 16 ); 
-	// use a "lambert" material rather than "basic" for realistic lighting.
-	//   (don't forget to add (at least one) light!)
+	var sphereGeometry = new THREE.CubeGeometry( 50, 32, 16 ); 
+
 	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0x8888ff} ); 
+	var vertexShader = document.getElementById( "vshader" ).textContent;
+	
+var fragmentShader = document.getElementById( "fshader" ).textContent;
+
+var uniforms = { 
+texture1: { type:"t", value: THREE.ImageUtils.loadTexture("images/tex.jpg") }
+}
+
+
+var shaderMaterial =
+  new THREE.ShaderMaterial({
+  uniforms:  uniforms,
+    vertexShader:   vertexShader,
+    fragmentShader: fragmentShader
+  });
+	
 	sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	sphere.position.set(100, 50, -50);
 	scene.add(sphere);
 	
-	
 
-	// create a set of coordinate axes to help orient user
-	//    specify length in pixels in each direction
 	var axes = new THREE.AxisHelper(100);
 	scene.add( axes );
-	
-	///////////
-	// FLOOR //
-	///////////
-	
-	// note: 4x4 checkboard pattern scaled so that each square is 25 by 25 pixels.
-	var floorTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
-	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-	floorTexture.repeat.set( 10, 10 );
-	// DoubleSide: render texture on both sides of mesh
-	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+
 	var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 1, 1);
-	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+	var floor = new THREE.Mesh(floorGeometry, shaderMaterial);
+	floor.material.side = THREE.DoubleSide;
 	floor.position.y = -0.5;
 	floor.rotation.x = Math.PI / 2;
 	scene.add(floor);
 	
-	/////////
-	// SKY //
-	/////////
-	
-	// recommend either a skybox or fog effect (can't use both at the same time) 
-	// without one of these, the scene's background color is determined by webpage background
 
-	// make sure the camera's "far" value is large enough so that it will render the skyBox!
-	var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
-	// BackSide: render faces from inside of the cube, instead of from outside (default).
-	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
-	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-	
-	// scene.add(skyBox);
-	
-	// fog must be added to scene before first render
 	scene.fog = new THREE.FogExp2( 0x999900, 0.00005 );
 }
 

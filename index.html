@@ -1,6 +1,29 @@
 <html>
 <body>
-<script src="libs/three.min.js"></script>
+
+<script id="vshader" type="x-shader/x-vertex">
+varying vec2 vUv;
+	void main() {
+		gl_Position = projectionMatrix *
+            modelViewMatrix *
+			vec4(position,1.0);
+		vUv = uv;
+	}
+
+</script>
+
+<script id="fshader" type="x-shader/x-fragment">
+	uniform sampler2D texture1;
+	varying vec2 vUv;
+	void main() {
+		gl_FragColor = texture2D(texture1, vUv); 
+	//	gl_FragColor = vec4(0.5, 0.2, vUv);
+	}
+</script>
+
+  
+  
+<script src="libs/three.js"></script>
 <script src="libs/Detector.js"></script>
 <script src="libs/Stats.js"></script>
 <script src="libs/TrackballControls.js"></script>
