@@ -1,8 +1,3 @@
-//////////	
-// MAIN //
-//////////
-
-// standard global variables
 var container, scene, camera, renderer, controls, stats;
 var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
@@ -10,13 +5,25 @@ var clock = new THREE.Clock();
 // custom global variables
 var cube;
 var sphere;
+
+var grid;
+var grid3d;
+var painter;
 // initialization
 init();
 
-// animation loop / game loop
 animate();
 
-
+function initializeGrid()
+{
+	grid = new CanvasMan(200,200);
+	grid.init();
+	painter = new Painter({
+		startx: 100,
+		starty: 100,
+		angle: 0,
+		color: 'green' });
+}
 			
 function init() 
 {
@@ -66,24 +73,7 @@ function init()
 	
 
 	var sphereGeometry = new THREE.CubeGeometry( 50, 32, 16 ); 
-
 	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0x8888ff} ); 
-	var vertexShader = document.getElementById( "vshader" ).textContent;
-	
-var fragmentShader = document.getElementById( "fshader" ).textContent;
-
-var uniforms = { 
-texture1: { type:"t", value: THREE.ImageUtils.loadTexture("images/tex.jpg") }
-}
-
-
-var shaderMaterial =
-  new THREE.ShaderMaterial({
-  uniforms:  uniforms,
-    vertexShader:   vertexShader,
-    fragmentShader: fragmentShader
-  });
-	
 	sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 	sphere.position.set(100, 50, -50);
 	scene.add(sphere);
@@ -92,15 +82,12 @@ var shaderMaterial =
 	var axes = new THREE.AxisHelper(100);
 	scene.add( axes );
 
-	var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 1, 1);
-	var floor = new THREE.Mesh(floorGeometry, shaderMaterial);
-	floor.material.side = THREE.DoubleSide;
-	floor.position.y = -0.5;
-	floor.rotation.x = Math.PI / 2;
-	scene.add(floor);
+	grid3d = new Grid({ scene: scene, sizex: 512, sizey: 512 });
+	grid3d.init();
 	
 
 	scene.fog = new THREE.FogExp2( 0x999900, 0.00005 );
+	initializeGrid();
 }
 
 function animate() 
@@ -114,29 +101,35 @@ function update()
 {
 	// delta = change in time since last call (in seconds)
 	var delta = clock.getDelta(); 
-
-	
 	var moveDistance = 200 * delta; // 200 pixels per second
 	var rotateAngle = Math.PI / 1.5 * delta;   // pi/2 radians (90 degrees) per second
-	
-
-
 	// move forwards/backwards/left/right
-	if ( keyboard.pressed("W") )
+	if ( keyboard.pressed("W") ) {
+		painter.goForward(1, grid.context);
 		sphere.translateZ( -moveDistance );
-	if ( keyboard.pressed("S") )
+		}
+	if ( keyboard.pressed("S") ) {
+	painter.goForward(-1, grid.context);
 		sphere.translateZ(  moveDistance );
-	if ( keyboard.pressed("Q") )
+		}
+	if ( keyboard.pressed("Q") ) {
+
 		sphere.translateX( -moveDistance );
-	if ( keyboard.pressed("E") )
+		}
+	if ( keyboard.pressed("E") ) {
 		sphere.translateX(  moveDistance );	
+		}
 
 	// rotate left/right/up/down
 	var rotation_matrix = new THREE.Matrix4().identity();
-	if ( keyboard.pressed("A") )
+	if ( keyboard.pressed("A") ) {
+		painter.turnLeft(0.1);
 		rotation_matrix = new THREE.Matrix4().makeRotationY(rotateAngle);
-	if ( keyboard.pressed("D") )
+		}
+	if ( keyboard.pressed("D") ) {
+		painter.turnLeft(-0.1);
 		rotation_matrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
+		}
 	if ( keyboard.pressed("R") )
 		rotation_matrix = new THREE.Matrix4().makeRotationX(rotateAngle);
 	if ( keyboard.pressed("F") )
@@ -156,3 +149,5 @@ function render()
 {	
 	renderer.render( scene, camera );
 }
+
+
