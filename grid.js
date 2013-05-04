@@ -1,8 +1,8 @@
 function Grid(param) {
 	param = param || {};
 	this.scene = param.scene || {};
-	this.sizex = param.sizex || 512;
-	this.sizey = param.sizey || 512;
+	this.sizex = param.sizex ;
+	this.sizey = param.sizey ;
 	}
 
 Grid.prototype.init = function() {

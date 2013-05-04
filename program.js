@@ -1,153 +1,173 @@
 var container, scene, camera, renderer, controls, stats;
 var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
-
-// custom global variables
 var cube;
 var sphere;
-
 var grid;
 var grid3d;
 var painter;
-// initialization
-init();
 
+init();
 animate();
 
-function initializeGrid()
-{
-	grid = new CanvasMan(200,200);
-	grid.init();
-	painter = new Painter({
-		startx: 100,
-		starty: 100,
-		angle: 0,
-		color: 'green' });
-}
-			
-function init() 
-{
-	scene = new THREE.Scene();
+function initializeGrid() {
+    // Grzesiu: Wspolrzedne na plansza 3D maja byc
+    // odzwierciedleniem tych na 2D. Teraz to dziala tak, ze to, co
+    // jest na canvasie nie pokrywa sie z tym co jest na planszy 3d.
 
-	var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;	
-	var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
-	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
-	scene.add(camera);
+    // Dobrze byloby zeby te dwa uklady mogly byc od siebie
+    // niezalezne, np. canvas - 512x512, plansza 64x64 i skalowanie
+    // 512 na 64. Te rozmiary zawsze beda potegami dwojki a plansza bedzie
+    // kwadratowa (ale to w sumie nie powinno miec znaczenia). 
 
-	camera.position.set(0,150,400);
-	camera.lookAt(scene.position);	
-	
+    // Mozna to zrobic albo za kazdym ruchem ustawiajac na sztywno
+    // wspolrzedne x,y i rotacje, albo rotacje zmieniac przy skrecie
+    // tak jak jest teraz. Osie mamy tak: Y do gory, Z,X to plansza.
 
-	// create and start the renderer; choose antialias setting.
-	if ( Detector.webgl )
-		renderer = new THREE.WebGLRenderer( {antialias:true} );
-	else
-		renderer = new THREE.CanvasRenderer(); 
-	
-	renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	// create a div element to contain the renderer
-	container = document.createElement( 'div' );
-	document.body.appendChild( container );
+    // Patrz do obiektow: Painter, PainterModel, Grid i CanvasMan.
+    var gridSize = 256;
+    grid = new CanvasMan(gridSize, gridSize);
+    grid.init();
+    painter = new Painter({
+        startx: gridSize / 2,
+        starty: gridSize / 2,
+        angle: 0,
+        color: 'green',
+        scene: scene,
+        gridSizeX: gridSize,
+        gridSizeY: gridSize
+    });
+    painter.init();
 
-	container.appendChild( renderer.domElement );
-
-	THREEx.WindowResize(renderer, camera);
-
-	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
-	
-
-	controls = new THREE.TrackballControls( camera );
-	
-
-	stats = new Stats();
-	stats.domElement.style.position = 'absolute';
-	stats.domElement.style.bottom = '0px';
-	stats.domElement.style.zIndex = 100;
-	container.appendChild( stats.domElement );
-
-	var light = new THREE.PointLight(0xffffff);
-	light.position.set(0,250,0);
-	scene.add(light);
-	var ambientLight = new THREE.AmbientLight(0x111111);
-	 scene.add(ambientLight);
-	
-
-	var sphereGeometry = new THREE.CubeGeometry( 50, 32, 16 ); 
-	var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0x8888ff} ); 
-	sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-	sphere.position.set(100, 50, -50);
-	scene.add(sphere);
-	
-
-	var axes = new THREE.AxisHelper(100);
-	scene.add( axes );
-
-	grid3d = new Grid({ scene: scene, sizex: 512, sizey: 512 });
-	grid3d.init();
-	
-
-	scene.fog = new THREE.FogExp2( 0x999900, 0.00005 );
-	initializeGrid();
+    grid3d = new Grid({
+        scene: scene,
+        sizex: gridSize,
+        sizey: gridSize
+    });
+    grid3d.init();
 }
 
-function animate() 
-{
-    requestAnimationFrame( animate );
-	render();		
-	update();
+function init() {
+    scene = new THREE.Scene();
+
+    var SCREEN_WIDTH = window.innerWidth,
+        SCREEN_HEIGHT = window.innerHeight;
+    var VIEW_ANGLE = 45,
+        ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
+        NEAR = 0.1,
+        FAR = 20000;
+    camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+    scene.add(camera);
+
+    camera.position.set(0, 900, -100);
+    camera.lookAt(scene.position);
+
+
+    // create and start the renderer; choose antialias setting.
+    if (Detector.webgl)
+        renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
+    else
+        renderer = new THREE.CanvasRenderer();
+
+    renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    // create a div element to contain the renderer
+
+    container = document.createElement('div');
+    document.body.appendChild(container);
+
+    container.appendChild(renderer.domElement);
+
+    THREEx.WindowResize(renderer, camera);
+
+    THREEx.FullScreen.bindKey({
+        charCode: 'm'.charCodeAt(0)
+    });
+
+
+    controls = new THREE.TrackballControls(camera);
+
+
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.bottom = '0px';
+    stats.domElement.style.zIndex = 100;
+    container.appendChild(stats.domElement);
+
+    var light = new THREE.PointLight(0xffffff);
+    light.position.set(0, 250, 0);
+    scene.add(light);
+    var ambientLight = new THREE.AmbientLight(0x111111);
+    scene.add(ambientLight);
+
+    var axes = new THREE.AxisHelper(100);
+    scene.add(axes);
+
+    scene.fog = new THREE.FogExp2(0x999900, 0.00001);
+    initializeGrid();
 }
 
-function update()
-{
-	// delta = change in time since last call (in seconds)
-	var delta = clock.getDelta(); 
-	var moveDistance = 200 * delta; // 200 pixels per second
-	var rotateAngle = Math.PI / 1.5 * delta;   // pi/2 radians (90 degrees) per second
-	// move forwards/backwards/left/right
-	if ( keyboard.pressed("W") ) {
-		painter.goForward(1, grid.context);
-		sphere.translateZ( -moveDistance );
-		}
-	if ( keyboard.pressed("S") ) {
-	painter.goForward(-1, grid.context);
-		sphere.translateZ(  moveDistance );
-		}
-	if ( keyboard.pressed("Q") ) {
-
-		sphere.translateX( -moveDistance );
-		}
-	if ( keyboard.pressed("E") ) {
-		sphere.translateX(  moveDistance );	
-		}
-
-	// rotate left/right/up/down
-	var rotation_matrix = new THREE.Matrix4().identity();
-	if ( keyboard.pressed("A") ) {
-		painter.turnLeft(0.1);
-		rotation_matrix = new THREE.Matrix4().makeRotationY(rotateAngle);
-		}
-	if ( keyboard.pressed("D") ) {
-		painter.turnLeft(-0.1);
-		rotation_matrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
-		}
-	if ( keyboard.pressed("R") )
-		rotation_matrix = new THREE.Matrix4().makeRotationX(rotateAngle);
-	if ( keyboard.pressed("F") )
-		rotation_matrix = new THREE.Matrix4().makeRotationX(-rotateAngle);
-	if ( keyboard.pressed("A") || keyboard.pressed("D") || 
-	     keyboard.pressed("R") || keyboard.pressed("F") )
-	{
-		sphere.matrix.multiply(rotation_matrix);
-		sphere.rotation.setEulerFromRotationMatrix(sphere.matrix);
-	}
-		
-	controls.update();
-	stats.update();
+function animate() {
+    requestAnimationFrame(animate);
+    render();
+    update();
 }
 
-function render() 
-{	
-	renderer.render( scene, camera );
+function update() {
+    // Wojtek: Potrzebowac bedziemy czegos w stylu 'managera gry/sterowania',
+    // klasy, do ktorej na wejsciu podamy ilosc graczy i ktora
+    // stworzy nam odpowiednia ilosc pedzli i bedzie nimi rysowac
+    // gdy nacisniete zostana odpowiednie przyciski. W oryginalnym
+    // battle painters nie ma przycisku 'do przodu', ale tutaj do
+    // celow debuggowania dalbym go kazdemu z graczy.
+
+    // Wyobrazam sobie to tak, ze jest ten manager, tworzony moze
+    // byc jako zmienna globalna (potem sie to zmieni jak bedzie jeszcze
+    // bardziej ogolna klasa zarzadzajaca menu itp.) ktory ma w sobie
+    // obiekt keyboard a takze grid, canvas i wszystkie pedzle.
+    // Naciskajac na rozne klawisze pedzle maluja po canvasie.
+    // Wykorzystaj clock.getDelta() do wszystkich ruchow. Miejsce
+    // w ktorym pojawiaja sie pedzle moze byc takie jak w Battle Painters
+    // albo dowolne inne tylko zeby na siebie nie nachodzily. 
+
+    var delta = clock.getDelta();
+    var moveDistance = 200 * delta; // 200 pixels per second
+    var rotateAngle = Math.PI / 1.5 * delta; // pi/2 radians (90 degrees) per second
+    // move forwards/backwards/left/right
+    if (keyboard.pressed("W")) {
+        painter.goForward(1, grid.context);
+
+    }
+    if (keyboard.pressed("S")) {
+        painter.goForward(-1, grid.context);
+
+    }
+
+    // rotate left/right/up/down
+    var rotation_matrix = new THREE.Matrix4().identity();
+    if (keyboard.pressed("A")) {
+        painter.turnLeft(0.1);
+        rotation_matrix = new THREE.Matrix4().makeRotationY(rotateAngle);
+    }
+    if (keyboard.pressed("D")) {
+        painter.turnLeft(-0.1);
+        rotation_matrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
+    }
+    if (keyboard.pressed("R"))
+        rotation_matrix = new THREE.Matrix4().makeRotationX(rotateAngle);
+    if (keyboard.pressed("F"))
+        rotation_matrix = new THREE.Matrix4().makeRotationX(-rotateAngle);
+    if (keyboard.pressed("A") || keyboard.pressed("D") ||
+        keyboard.pressed("R") || keyboard.pressed("F")) {
+        //sphere.matrix.multiply(rotation_matrix);
+        //sphere.rotation.setEulerFromRotationMatrix(sphere.matrix);
+    }
+
+    controls.update();
+    stats.update();
 }
 
-
+function render() {
+    renderer.render(scene, camera);
+}
