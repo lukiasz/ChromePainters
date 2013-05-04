@@ -62,6 +62,11 @@ function init() {
     camera.position.set(0, 900, -100);
     camera.lookAt(scene.position);
 
+	// Junior task 1: Przeniesienie kamery i swiatla do dwoch 
+	// osobnych klas troche na wzor tych juz istniejacych (konstruktor
+	// i metoda init). Pod koniec rozgrywki bedziemy chcieli kamere
+	// skierowac na wygranego gracza, ze swietlem tez moze cos bedziemy
+	// chcieli zrobic.
 
     // create and start the renderer; choose antialias setting.
     if (Detector.webgl)
@@ -71,6 +76,11 @@ function init() {
     else
         renderer = new THREE.CanvasRenderer();
 
+		
+	// Junior task 3: Ustawienie kamery tak zeby wszystko bylo dobrze widoczne
+
+	// Junior task 4: Ukrywanie/pokazywanie canvasa po nacisnieciu jakiegos przycisku
+	
     renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     // create a div element to contain the renderer
 
@@ -110,6 +120,7 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
+	grid3d.refresh();
     render();
     update();
 }
