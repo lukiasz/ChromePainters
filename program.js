@@ -1,4 +1,4 @@
-var container, scene, camera, renderer, controls, stats;
+var container, scene, camera, renderer, controls, stats, light;
 var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
 var cube;
@@ -56,17 +56,19 @@ function init() {
         ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
         NEAR = 0.1,
         FAR = 20000;
-    camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-    scene.add(camera);
-
-    camera.position.set(0, 900, -100);
-    camera.lookAt(scene.position);
-
-	// Junior task 1: Przeniesienie kamery i swiatla do dwoch 
-	// osobnych klas troche na wzor tych juz istniejacych (konstruktor
-	// i metoda init). Pod koniec rozgrywki bedziemy chcieli kamere
-	// skierowac na wygranego gracza, ze swietlem tez moze cos bedziemy
-	// chcieli zrobic.
+	
+	camera = new Camera({
+		x: 0,
+		y: 900,
+		z: -100,
+		viewAngle: VIEW_ANGLE,
+		aspect: ASPECT,
+		near: NEAR,
+		far: FAR,
+		scene: scene
+		});
+	camera.init();
+	
 
     // create and start the renderer; choose antialias setting.
     if (Detector.webgl)
@@ -89,14 +91,14 @@ function init() {
 
     container.appendChild(renderer.domElement);
 
-    THREEx.WindowResize(renderer, camera);
+    THREEx.WindowResize(renderer, camera.camera);
 
     THREEx.FullScreen.bindKey({
         charCode: 'm'.charCodeAt(0)
     });
 
 
-    controls = new THREE.TrackballControls(camera);
+    controls = new THREE.TrackballControls(camera.camera);
 
 
     stats = new Stats();
@@ -105,11 +107,18 @@ function init() {
     stats.domElement.style.zIndex = 100;
     container.appendChild(stats.domElement);
 
-    var light = new THREE.PointLight(0xffffff);
-    light.position.set(0, 250, 0);
-    scene.add(light);
-    var ambientLight = new THREE.AmbientLight(0x111111);
-    scene.add(ambientLight);
+	light = new Light({
+		x: 0,
+		y: 250,
+		z: 0,
+		pointLightValue: 0xffffff,
+		ambientLightValue: 0x111111,
+		scene: scene
+	});
+	
+	light.init();
+
+ 
 
     var axes = new THREE.AxisHelper(100);
     scene.add(axes);
@@ -180,5 +189,5 @@ function update() {
 }
 
 function render() {
-    renderer.render(scene, camera);
+    renderer.render(scene, camera.camera);
 }
