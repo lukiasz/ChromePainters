@@ -33,7 +33,7 @@ Painter.prototype.goForward = function (length, context) {
     this.ypos += length * Math.sin(this.angle);
 
     context.lineTo(this.xpos, this.ypos);
-    context.lineWidth = 5;
+    context.lineWidth = 15;
     context.strokeStyle = this.color;
     context.lineCap = 'round';
     context.stroke();

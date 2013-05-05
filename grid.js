@@ -13,8 +13,15 @@ Grid.prototype.init = function() {
 	this.texture = new THREE.Texture(canvas);
 					this.texture.needsUpdate = true;
 	
+	var tex2 = THREE.ImageUtils.loadTexture("images/tex.jpg");
+	tex2.wrapS = tex2.wrapT = THREE.RepeatWrapping;
 	var uniforms = { 
-	texture1: { type:"t", value: this.texture }
+	texture1: { type:"t", value: this.texture },
+	texture2: { type:"t", value: tex2 },
+	textRepeat: {
+        type: 'f',
+        value: 2
+    }
 	}
 	var shaderMaterial =
 	new THREE.ShaderMaterial({

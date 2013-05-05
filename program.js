@@ -25,7 +25,7 @@ function initializeGrid() {
     // tak jak jest teraz. Osie mamy tak: Y do gory, Z,X to plansza.
 
     // Patrz do obiektow: Painter, PainterModel, Grid i CanvasMan.
-    var gridSize = 256;
+    var gridSize = 512;
     grid = new CanvasMan(gridSize, gridSize);
     grid.init();
     painter = new Painter({
