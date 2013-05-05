@@ -174,8 +174,12 @@ function update() {
         painter.turnLeft(-0.1);
         rotation_matrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
     }
-    if (keyboard.pressed("R"))
-        rotation_matrix = new THREE.Matrix4().makeRotationX(rotateAngle);
+    if (keyboard.pressed("R")) {
+			// do testow statystyk. mozna spokojnie wywalic
+			var statistics = new Statistics(grid.canvas);
+			statistics.getColorStats();
+			debugger;
+	}
     if (keyboard.pressed("F"))
         rotation_matrix = new THREE.Matrix4().makeRotationX(-rotateAngle);
     if (keyboard.pressed("A") || keyboard.pressed("D") ||
