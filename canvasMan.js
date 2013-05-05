@@ -5,7 +5,8 @@ function CanvasMan(x, y) {
 	this.canvas.setAttribute("id", "canvas");
 	this.canvas.width = this.x;
 	this.canvas.height = this.y;
-	document.body.insertBefore(this.canvas, document.body.firstChild);
+	document.body.appendChild(this.canvas);
+	//document.body.insertBefore(this.canvas, document.body.firstChild);
 }
 
 CanvasMan.prototype.init = function() {
