@@ -26,7 +26,7 @@ var paintersManager = {
             });
             painterTemp.init();
             painters[i] = painterTemp;
-			}
+        }
     },
     steering: function () {
         var steeringKeys = [['W', 'A', 'S', 'D'], ["I", "J", "K", "L"], ["up", "left", "down", "right"]];
@@ -75,7 +75,6 @@ var paintersManager = {
 
 
 
-
 init();
 animate();
 
@@ -100,6 +99,38 @@ function initializeGrid() {
     var gridSize = 512;
     grid = new CanvasMan(gridSize, gridSize);
     grid.init();
+<<<<<<< HEAD
+//    painter = new Painter({
+//        startx: gridSize / 2,
+//        starty: gridSize / 2,
+//        angle: 0,
+//        color: 'green',
+//        scene: scene,
+//        gridSizeX: gridSize,
+//        gridSizeY: gridSize
+//    });
+//    painter.init();
+=======
+    /*painter = new Painter({
+        startx: gridSize / 2,
+        starty: gridSize / 2,
+        angle: 0,
+        color: 'green',
+        scene: scene,
+        gridSizeX: gridSize,
+        gridSizeY: gridSize
+    });
+    painter.init();*/
+
+	var loader = new THREE.ColladaLoader();
+	loader.options.convertUpAxis = true;
+	loader.load('./models/RedPaintbrush.dae', function (result) {
+	result.position.set(gridSize / 2, 50, gridSize / 2);
+	result.scale.x = dae.scale.y = dae.scale.z = 25.0;
+	scene.add(result.scene);
+	renderer.render(scene,camera.camera);
+	});
+>>>>>>> wczytanie modelu.
 
     grid3d = new Grid({
         scene: scene,
