@@ -53,8 +53,8 @@ PainterModel.prototype.goForward = function (length) {
 PainterModel.prototype.turnLeft = function (angle) {
     // Justyna: tutaj tez animacja skretu pedzla
 
-    var rotation_matrix = new THREE.Matrix4().makeRotationY(angle);
-    this.brush.matrix.multiply(rotation_matrix);
-    this.brush.rotation.setEulerFromRotationMatrix(this.brush.matrix);
+//    var rotation_matrix = new THREE.Matrix4().makeRotationY(angle);
+//    this.brush.matrix.multiply(rotation_matrix);
+    this.brush.rotation.y += angle;
 
 }
