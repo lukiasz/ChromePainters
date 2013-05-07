@@ -6,6 +6,7 @@ function PainterModel(param) {
     this.colorHex = param.colorHex || "0x8888ff";
 	this.brushColor = param.brushColor;
     this.scene = param.scene;
+	this.brush = null;
 }
 
 PainterModel.prototype.init = function () {
@@ -14,24 +15,21 @@ PainterModel.prototype.init = function () {
     // na pozniej. ThreeJS ma jakies loadery modelow, to powinno
     // byc stosunkowo proste
 
-
-    //'./models/' + this.color + 'Brush.dae'
     var x = this.xpos;
     var y = this.ypos;
 
     var loader = new THREE.ColladaLoader();
     loader.options.convertUpAxis = true;
-    var self = this;
+    var that = this;
     loader.load('./models/' + this.brushColor + 'Brush.dae', function (collada) {
-        this.brush = collada.scene;
-        this.brush.doublesided = true;
-        this.brush.scale.x = this.brush.scale.y = this.brush.scale.z = 4;
-        this.brush.position.set(x, 50, y);
-        this.brush.updateMatrix();
-        self.brush = this.brush;
-        this.scene.add(this.brush);
+        var model = collada.scene;
+        model.doublesided = true;
+        model.scale.x = model.scale.y = model.scale.z = 4;
+        model.position.set(x, 50, y);
+        model.updateMatrix();
+        this.scene.add(model);
+        that.brush = model;
     });
-
 
     /*var sphereGeometry = new THREE.CubeGeometry(50, 32, 16);
 
@@ -48,14 +46,15 @@ PainterModel.prototype.init = function () {
 
 PainterModel.prototype.goForward = function (length) {
     // Justyna: tutaj gdzies powinna byc animacja pedzla
+	
     this.brush.translateZ(length);
 }
 
 PainterModel.prototype.turnLeft = function (angle) {
     // Justyna: tutaj tez animacja skretu pedzla
+
     var rotation_matrix = new THREE.Matrix4().makeRotationY(angle);
     this.brush.matrix.multiply(rotation_matrix);
     this.brush.rotation.setEulerFromRotationMatrix(this.brush.matrix);
 
-    //this.sphere.rotation.setEulerFromRotationMatrix(this.sphere.matrix);
 }
