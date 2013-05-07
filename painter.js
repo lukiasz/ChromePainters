@@ -16,6 +16,7 @@ function Painter(param) {
         starty: this.ypos,
         angle: this.angle,
         colorHex: "0x8888ff",
+		brushColor: this.color,
         scene: param.scene
     });
 }
