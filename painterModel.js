@@ -4,6 +4,7 @@ function PainterModel(param) {
     this.ypos = param.starty || 0;
     this.angle = param.angle || 0;
     this.colorHex = param.colorHex || "0x8888ff";
+	this.brushColor = param.brushColor;
     this.scene = param.scene;
 
 }
@@ -18,9 +19,10 @@ PainterModel.prototype.init = function () {
 	 //'./models/' + this.color + 'Brush.dae'
 	 var x= this.xpos;
 	 var y = this.ypos;
+	 
 			var loader = new THREE.ColladaLoader();
 			loader.options.convertUpAxis = true;
-			loader.load( './models/redBrush.dae', function ( collada ) {
+			loader.load( './models/' + this.brushColor + 'Brush.dae', function ( collada ) {
 
 				this.brush = collada.scene;
 				this.brush.doublesided = true;
