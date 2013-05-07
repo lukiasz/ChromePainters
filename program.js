@@ -16,8 +16,8 @@ var paintersManager = {
         var colors = ['red', 'blue', 'green', 'yellow'];
         for (var i = 0; i < this.amount; i++) {
             var painterTemp = new Painter({
-                startx: (this.gridSize - 200*(i-this.amount+1)) / 2,
-                starty: (this.gridSize - 200*(i-this.amount+1)) / 2,
+                startx: (this.gridSize - 200 * (i - this.amount + 1)) / 2,
+                starty: (this.gridSize - 200 * (i - this.amount + 1)) / 2,
                 angle: 0,
                 color: colors[i],
                 scene: scene,
@@ -26,7 +26,7 @@ var paintersManager = {
             });
             painterTemp.init();
             painters[i] = painterTemp;
-			}
+        }
     },
     steering: function () {
         var steeringKeys = [['W', 'A', 'S', 'D'], ["I", "J", "K", "L"], ["up", "left", "down", "right"]];

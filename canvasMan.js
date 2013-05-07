@@ -9,16 +9,16 @@ function CanvasMan(x, y) {
 	//document.body.insertBefore(this.canvas, document.body.firstChild);
 }
 
-CanvasMan.prototype.init = function() {
-      var context = this.canvas.getContext('2d');
+CanvasMan.prototype.init = function () {
+    var context = this.canvas.getContext('2d');
 
-	  context.beginPath();
-      context.rect(0, 0, this.x, this.y);
-      context.fillStyle = 'white';
-      context.fill();
-      context.lineWidth = 2;
-      context.strokeStyle = 'black';
-      context.stroke();
-	  this.context = context;
+    context.beginPath();
+    context.rect(0, 0, this.x, this.y);
+    context.fillStyle = 'white';
+    context.fill();
+    context.lineWidth = 2;
+    context.strokeStyle = 'black';
+    context.stroke();
+    this.context = context;
 }
 
