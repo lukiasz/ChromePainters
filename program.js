@@ -57,11 +57,11 @@ var paintersManager = {
 
 
         //-----------------Debugging-----------------------------
-        if (keyboard.pressed("R")) {
+        if (keyboard.pressed("r")) {
             // do testow statystyk. mozna spokojnie wywalic
             var statistics = new Statistics(grid.canvas);
             statistics.getColorStats();
-            debugger;
+            //debugger;
         }
         if (keyboard.pressed("F"))
             rotation_matrix = new THREE.Matrix4().makeRotationX(-rotateAngle);
