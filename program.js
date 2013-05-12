@@ -18,8 +18,8 @@ var paintersManager = {
         var colors = ['red', 'blue', 'green', 'yellow'];
         for (var i = 0; i < this.amount; i++) {
             var painterTemp = new Painter({
-                startx: (this.gridSize - 200 * (i - this.amount + 1)) / 2,
-                starty: (this.gridSize - 200 * (i - this.amount + 1)) / 2,
+                startx: 0,
+                starty: 0,
                 angle: 0,
                 color: colors[i],
                 scene: scene,

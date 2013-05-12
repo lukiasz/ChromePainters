@@ -28,12 +28,12 @@ Painter.prototype.init = function () {
 
 Painter.prototype.goForward = function (length, context) {
     context.beginPath();
-    context.moveTo(this.xpos, this.ypos);
+    context.moveTo(this.xpos + this.gridSizeX/2, this.ypos + this.gridSizeY/2);
 
-    this.xpos += length * Math.cos(this.angle);
-    this.ypos += length * Math.sin(this.angle);
+    this.xpos -= length * Math.sin(this.angle);
+    this.ypos -= length * Math.cos(this.angle);
 
-    context.lineTo(this.xpos, this.ypos);
+    context.lineTo(this.xpos + this.gridSizeX/2, this.ypos + this.gridSizeY/2);
     context.lineWidth = 15;
     context.strokeStyle = this.color;
     context.lineCap = 'round';
