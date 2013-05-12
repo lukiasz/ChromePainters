@@ -7,7 +7,9 @@ var grid;
 var grid3d;
 var painter;
 var painters =[];
-
+var timer;
+var bgScene;
+var bgCam;
 
 var paintersManager = {
     gridSize: 512,
@@ -180,15 +182,29 @@ function init() {
 	
 	light.init();
 
- 
+	// T³o
+	var bgTexture = THREE.ImageUtils.loadTexture("images/background.jpg");
+	var bg = new THREE.Mesh(
+		new THREE.PlaneGeometry(2, 2, 0),
+		new THREE.MeshBasicMaterial({map: bgTexture})
+	);
 
-    var axes = new THREE.AxisHelper(100);
-    scene.add(axes);
+	// Render t³a jest niezale¿ny od pozycji kamery
+	bg.material.depthTest = false;
+	bg.material.depthWrite = false;
+
+	bgScene = new THREE.Scene();
+	bgCam = new THREE.Camera();
+	bgScene.add(bgCam);
+	bgScene.add(bg);
+	
 
     scene.fog = new THREE.FogExp2(0x999900, 0.00001);
     initializeGrid();
     paintersManager.amount = 3;
     paintersManager.init();
+	timer = new Timer();
+	timer.start(1000, 10);
 }
 
 function animate() {
@@ -199,33 +215,16 @@ function animate() {
 }
 
 function update() {
-    // Wojtek: Potrzebowac bedziemy czegos w stylu 'managera gry/sterowania',
-    // klasy, do ktorej na wejsciu podamy ilosc graczy i ktora
-    // stworzy nam odpowiednia ilosc pedzli i bedzie nimi rysowac
-    // gdy nacisniete zostana odpowiednie przyciski. W oryginalnym
-    // battle painters nie ma przycisku 'do przodu', ale tutaj do
-    // celow debuggowania dalbym go kazdemu z graczy.
-
-    // Wyobrazam sobie to tak, ze jest ten manager, tworzony moze
-    // byc jako zmienna globalna (potem sie to zmieni jak bedzie jeszcze
-    // bardziej ogolna klasa zarzadzajaca menu itp.) ktory ma w sobie
-    // obiekt keyboard a takze grid, canvas i wszystkie pedzle.
-    // Naciskajac na rozne klawisze pedzle maluja po canvasie.
-    // Wykorzystaj clock.getDelta() do wszystkich ruchow. Miejsce
-    // w ktorym pojawiaja sie pedzle moze byc takie jak w Battle Painters
-    // albo dowolne inne tylko zeby na siebie nie nachodzily. 
-    
     paintersManager.steering();
-    
-	
     controls.update();
     stats.update();
 }
 
-
-
-
-
 function render() {
+	renderer.autoClear = false;
+	renderer.clear();
+	
+	// TODO £ukasz: refactor - kamera do kamery, t³o ??.
+	renderer.render(bgScene, bgCam);
     renderer.render(scene, camera.camera);
 }

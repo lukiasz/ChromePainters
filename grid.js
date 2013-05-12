@@ -24,13 +24,16 @@ function Grid(param) {
 	        }
 	    }
 	    var shaderMaterial =
+	
 	new THREE.ShaderMaterial({
 	    uniforms: uniforms,
 	    vertexShader: vertexShader,
 	    fragmentShader: fragmentShader
 	});
-
-	    // Junior task 2: Stworzenie obramowania planszy tak, ¿eby by³y
+	
+		//var floorMaterial = new THREE.MeshPhongMaterial( { map: tex2, side: THREE.DoubleSide } );
+	    
+		// Junior task 2: Stworzenie obramowania planszy tak, ¿eby by³y
 	    // "bandy" od ktorych pozniej odbijac sie beda pedzle. Niech beda to 
 	    // cztery prostopadlosciany (albo jeden wyswietlany 4x).
 	    // Moze to byc osobny obiekt w osobnym pliku albo gdzies tutaj.
