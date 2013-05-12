@@ -75,14 +75,8 @@ var paintersManager = {
     }
 };
 
-
-
-
 init();
 animate();
-
-
-
 
 function initializeGrid() {
     // Grzesiu: Wspolrzedne na plansza 3D maja byc
@@ -91,8 +85,8 @@ function initializeGrid() {
 
     // Dobrze byloby zeby te dwa uklady mogly byc od siebie
     // niezalezne, np. canvas - 512x512, plansza 64x64 i skalowanie
-    // 512 na 64. Te rozmiary zawsze beda potegami dwojki a plansza bedzie
-    // kwadratowa (ale to w sumie nie powinno miec znaczenia). 
+    // 512 na 64. Rozmiar tekstury musi byæ potêg¹ dwójki, rozmiar samej planszy w 3d
+	// niekoniecznie.
 
     // Mozna to zrobic albo za kazdym ruchem ustawiajac na sztywno
     // wspolrzedne x,y i rotacje, albo rotacje zmieniac przy skrecie
