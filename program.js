@@ -24,7 +24,8 @@ var paintersManager = {
                 color: colors[i],
                 scene: scene,
                 gridSizeX: this.gridSize,
-                gridSizeY: this.gridSize
+                gridSizeY: this.gridSize,
+				context: grid.context,
             });
             painterTemp.init();
             painters[i] = painterTemp;

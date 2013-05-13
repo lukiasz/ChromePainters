@@ -9,6 +9,7 @@ function Painter(param) {
     this.gridSizeY = param.gridSizeY;
     this.canvasSizeX = param.canvasSizeX;
     this.canvasSizeY = param.canvasSizeY;
+	this.context = param.context;
     // Inicjalizacja pedzla 3d
 
     this.model3d = new PainterModel({
@@ -23,27 +24,25 @@ function Painter(param) {
 
 Painter.prototype.init = function () {
     this.model3d.init();
-
+	
+	this.model2d = chromePainters.painter2d({
+		context: this.context,
+		xpos: this.xpos,
+		ypos: this.ypos,
+		angle: this.angle,
+		color: this.color,
+		gridSizeX: this.gridSizeX,
+		gridSizeY: this.gridSizeY,});
+	
 }
 
 Painter.prototype.goForward = function (length, context) {
-    context.beginPath();
-    context.moveTo(this.xpos + this.gridSizeX/2, this.ypos + this.gridSizeY/2);
-
-    this.xpos -= length * Math.sin(this.angle);
-    this.ypos -= length * Math.cos(this.angle);
-
-    context.lineTo(this.xpos + this.gridSizeX/2, this.ypos + this.gridSizeY/2);
-    context.lineWidth = 15;
-    context.strokeStyle = this.color;
-    context.lineCap = 'round';
-    context.stroke();
-
+    
+	this.model2d.goForward(length);
     this.model3d.goForward(length);
 }
 
 Painter.prototype.turnLeft = function (angle) {
     this.model3d.turnLeft(angle);
-    this.angle += angle;
-    this.angle = this.angle;
+    this.model2d.turnLeft(angle);
 }
