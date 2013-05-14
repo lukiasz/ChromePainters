@@ -1,3 +1,45 @@
+var chromePainters = chromePainters || {};
+
+chromePainters.painter3d = function(spec) {
+	var that = {};
+	var my = {};
+	
+	my.xpos = spec.xpos;
+	my.ypos = spec.ypos;
+	my.angle = spec.angle;
+	my.brushColor = spec.brushColor;
+	my.scene = spec.scene;
+
+	
+	var init = function() {
+		var loader = new THREE.ColladaLoader();
+		loader.options.convertUpAxis = true;
+		var self = my;
+		loader.load('./models/' + self.brushColor + 'Brush.dae', function (collada) {
+			var model = collada.scene;
+			model.doublesided = true;
+			model.scale.x = model.scale.y = model.scale.z = 4;
+			model.position.set(self.xpos, 50, self.ypos);
+			model.updateMatrix();
+			self.scene.add(model);
+			self.brush = model;
+		});
+	};
+	
+	var goForward = function(step) {
+		my.brush.translateZ(step);
+	};
+	
+	var turnLeft = function(angle) {
+		my.brush.rotation.y += angle;
+	};
+
+	that.init = init;
+	that.goForward = goForward;
+	that.turnLeft = turnLeft;
+	return that;
+};
+
 function PainterModel(param) {
     param = param || {};
     this.xpos = param.startx || 0;
@@ -9,11 +51,7 @@ function PainterModel(param) {
 	this.brush = null;
 }
 
-PainterModel.prototype.init = function () {
-    // Justyna: Tutaj powinno byc wczytanie modelu pedzla;
-    // zajmij sie tym w pierwszej kolejnosci, animacje zostaw
-    // na pozniej. ThreeJS ma jakies loadery modelow, to powinno
-    // byc stosunkowo proste
+/*PainterModel.prototype.init = function () {
 
     var x = this.xpos;
     var y = this.ypos;
@@ -31,16 +69,7 @@ PainterModel.prototype.init = function () {
         that.brush = model;
     });
 
-    /*var sphereGeometry = new THREE.CubeGeometry(50, 32, 16);
 
-    // Justyna: zerknij tez przy okazji, czemu kolor mi nie dziala
-    var sphereMaterial = new THREE.MeshLambertMaterial({
-    color: this.colorHex
-    });
-    this.sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    this.sphere.position.set(this.xpos, 50, this.ypos);
-
-    this.scene.add(this.sphere);*/
 
 }
 
@@ -57,4 +86,4 @@ PainterModel.prototype.turnLeft = function (angle) {
 //    this.brush.matrix.multiply(rotation_matrix);
     this.brush.rotation.y += angle;
 
-}
+}*/

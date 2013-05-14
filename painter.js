@@ -12,11 +12,10 @@ function Painter(param) {
 	this.context = param.context;
     // Inicjalizacja pedzla 3d
 
-    this.model3d = new PainterModel({
-        startx: this.xpos,
-        starty: this.ypos,
+    this.model3d = new chromePainters.painter3d({
+        xpos: this.xpos,
+        ypos: this.ypos,
         angle: this.angle,
-        colorHex: "0x8888ff",
 		brushColor: this.color,
         scene: param.scene
     });
