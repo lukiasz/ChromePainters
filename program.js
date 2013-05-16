@@ -17,9 +17,9 @@ var paintersManager = {
     init: function () {
         var colors = ['red', 'blue', 'green', 'yellow'];
         for (var i = 0; i < this.amount; i++) {
-            var painterTemp = new Painter({
-                startx: 0,
-                starty: 0,
+            var painterTemp = new chromePainters.painter({
+                xpos: 0,
+                ypos: 0,
                 angle: 0,
                 color: colors[i],
                 scene: scene,
