@@ -1,6 +1,7 @@
-function Timer() {
+function Timer(spec) {
 	this.elem = document.getElementById('timerGui');
 	this.progress = 0;
+	this.bonus = spec;
 }
 
 Timer.prototype.start = function (interval, gameLength) {
@@ -23,26 +24,29 @@ Timer.prototype.stop = function () {
 Timer.prototype.update = function () {
 	this.progress += 1;
 	this.elem.innerHTML = "[";
-	for (var i = 0; i < this.progress; ++i)
-	{
-		if (i % 5 == 4)
-		{
+	for (var i = 0; i < this.progress; ++i) {
+		if (i % 5 === 4) {
 			this.elem.innerHTML += "_";
 			// todo: Justyna - zrzucanie w losowym miejscu losowego bonusu
+			
 		}	
-		else
-		{
+		else {
 			this.elem.innerHTML += "#";
 		}
 	}
-	for (i = 0; i < this.gameLength - this.progress; ++i)
-	{
+	
+	for (i = 0; i < this.gameLength - this.progress; ++i) {
 		this.elem.innerHTML += "_";
+		
 	}
 	this.elem.innerHTML += "]";
 	
-	if (this.progress === this.gameLength)
-	{
+	if(this.progress % 5 === 4) {
+		this.bonus.checkBonus();
+		this.bonus.loadBonus();
+	}
+		
+	if (this.progress === this.gameLength) {
 		// TODO: Wojtek wyœwietlanie statystyk
 		alert("koniec gry, statystyki");
 		this.stop();

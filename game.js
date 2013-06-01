@@ -17,6 +17,7 @@ chromePainters.game = function(spec) {
 	my.grid;
 	my.paintersManager;
 	my.controls;
+	my.bonus;
 	
 	var init = function() {
 	
@@ -115,11 +116,19 @@ chromePainters.game = function(spec) {
 			gridSize: gridSize,
 			amount: 3,
 			grid: my.grid,
-			scene: my.scene,
+			scene: my.scene
 			});
 
 		my.paintersManager.init();
-		my.timer = new Timer();
+		
+		my.bonus = new chromePainters.bonus({
+			scene: my.scene,
+			gridSizeX: gridSize,
+		    gridSizeY: gridSize
+		 });
+		my.bonus.init();
+		
+		my.timer = new Timer(my.bonus);
 		my.timer.start(1000, 10);
 		
 		
