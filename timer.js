@@ -1,7 +1,7 @@
-function Timer(spec) {
+function Timer() {
 	this.elem = document.getElementById('timerGui');
 	this.progress = 0;
-	this.bonus = spec;
+	this.addBonus = 0;
 }
 
 Timer.prototype.start = function (interval, gameLength) {
@@ -9,7 +9,7 @@ Timer.prototype.start = function (interval, gameLength) {
 	
 	// gameLength = 4 segmenty po 5 okresow interval
 	this.gameLength = gameLength || 4;
-	this.gameLength *= 5;
+	this.gameLength *= 10;
 	this.gameLength -= 1;
 	this.elem.innerHTML = "";
 	var that = this;
@@ -25,10 +25,8 @@ Timer.prototype.update = function () {
 	this.progress += 1;
 	this.elem.innerHTML = "[";
 	for (var i = 0; i < this.progress; ++i) {
-		if (i % 5 === 4) {
+		if (i % 10 === 9) {
 			this.elem.innerHTML += "_";
-			// todo: Justyna - zrzucanie w losowym miejscu losowego bonusu
-			
 		}	
 		else {
 			this.elem.innerHTML += "#";
@@ -41,9 +39,8 @@ Timer.prototype.update = function () {
 	}
 	this.elem.innerHTML += "]";
 	
-	if(this.progress % 5 === 4) {
-		this.bonus.checkBonus();
-		this.bonus.loadBonus();
+	if((this.progress-1) % 10 === 9) {
+		this.addBonus=1;
 	}
 		
 	if (this.progress === this.gameLength) {

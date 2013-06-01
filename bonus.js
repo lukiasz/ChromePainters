@@ -7,9 +7,10 @@ chromePainters.bonus = function(spec) {
 	my.xpos = spec.xpos || 0;
 	my.ypos = spec.ypos || 0;
 	my.color = spec.color || 0x000000;
-	my.speed = spec.speed || 0;
-	my.width = spec.width || 0;
-	my.oneColor = spec.oneColor || 0;
+	that.speed = spec.speed || 0;
+	that.width = spec.width || 0;
+	that.oneColor = spec.oneColor || 0;
+	that.stopOthers = spec.stopOthers || 0;
 	my.scene = spec.scene;
 	my.gridSizeX = spec.gridSizeX;
 	my.gridSizeY = spec.gridSizeY;
@@ -18,26 +19,56 @@ chromePainters.bonus = function(spec) {
 		var material = new THREE.MeshBasicMaterial({color: my.color, opacity: 1});
 		my.bonus = new THREE.Mesh(new THREE.CubeGeometry(25,25,25), material);
 		my.bonus.position.set(my.xpos, 15, my.ypos);
-		//my.scene.add(my.bonus);
-		//addBonus();
 	};
 	
 	var setBonusType = function() {
-		var BonusType = parseInt((Math.random()*10) % 3);
-		if(BonusType === 0)
+		var BonusType = parseInt((Math.random()*10) % 4);
+		while(1)
 		{
-			my.speed = 1;
-			my.color = new THREE.Color().setHex(0xFF0000);
-		}
-		else if(BonusType === 1)
-		{
-			my.width  = 1;
-			my.color = new THREE.Color().setHex(0x00FF00);
-		}
-		else
-		{
-			my.oneColor = 1;
-			my.color = new THREE.Color().setHex(0x0000FF);
+			if(BonusType === 0)
+			{
+				if(that.speed != -100) {
+					that.speed = 1;
+					my.color = new THREE.Color().setHex(0x00FF00);
+					break;
+				}
+				else {
+					BonusType++;
+				}
+			}
+			if(BonusType === 1)
+			{
+				if(that.width != -100) {
+					that.width  = 1;
+					my.color = new THREE.Color().setHex(0xFF0000);
+					break;
+				}
+				else {
+					BonusType++;
+				}
+			}
+			if(BonusType === 2)
+			{
+				if(that.oneColor != -100) {
+					that.oneColor = 1;
+					my.color = new THREE.Color().setHex(0x0000FF);
+					break;
+				}
+				else {
+					BonusType++;
+				}
+			}
+			if(BonusType === 3)
+			{
+				if(that.stopOthers != -100) {
+					that.stopOthers = 1;
+					my.color = new THREE.Color().setHex(0xFF00FF);
+					break;
+				}
+				else {
+					BonusType=0;
+				}
+			}
 		}
 		my.bonus.material.color = my.color;
 	};
@@ -52,32 +83,55 @@ chromePainters.bonus = function(spec) {
 		my.scene.add(my.bonus);
 	};
 	
+	var removeBonus = function() {
+		my.scene.remove(my.bonus);
+	};
 	var loadBonus = function() {
 		setBonusType();
 		setCoordinates();
 		addBonus();
 	};
 	
-	var activateBonus = function() {
-		if(my.speed === 1)
+	var activateBonus = function() {	//funkcja wywo³ywana po zebraniu bonusu
+		if(that.speed === 1)
 		{
-			my.speed = -1;
+			that.speed = -1;
 		}
-		else if(my.width === 1)
+		else if(that.width === 1)
 		{
-			my.width  = -1;
+			that.width  = -1;
 		}
-		else if(my.oneColor === 1)
+		else if(that.oneColor === 1)
 		{
-			my.oneColor = -1;
+			that.oneColor = -1;
 		}
-	}
+		else if(that.stopOthers === 1)
+		{
+			that.stopOthers = -1;
+		}
+	};
+	
+	var deactivateBonus = function() {
+		if(that.speed === 1 || that.speed === -1) {	//mo¿na te¿ nie zebraæ bonusu
+			that.speed = -100;
+		}
+		else if(that.width === 1 || that.width === -1) {	
+			that.width = -100;
+		}
+		else if(that.oneColor === 1 || that.oneColor === -1) {	
+			that.oneColor = -100;
+		}
+		else if(that.stopOthers === 1 || that.stopOthers === -1) {	
+			that.stopOthers = -100;
+		}
+	};
 	
 	var checkBonus = function() {
-		if(my.speed === 1 || my.width === 1 || my.oneColor ===1) {
+		if(that.speed === 1 || that.width === 1 || that.oneColor === 1 || that.stopOthers === 1) {
 			activateBonus();
 		}
-	}
+	};
+	
 	that.init = init;
 	that.setBonusType = setBonusType;
 	that.setCoordinates = setCoordinates;
@@ -85,5 +139,7 @@ chromePainters.bonus = function(spec) {
 	that.loadBonus = loadBonus;
 	that.activateBonus = activateBonus;
 	that.checkBonus = checkBonus;
+	that.removeBonus = removeBonus;
+	that.deactivateBonus = deactivateBonus;
 	return that;
 };

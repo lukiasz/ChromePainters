@@ -128,8 +128,8 @@ chromePainters.game = function(spec) {
 		 });
 		my.bonus.init();
 		
-		my.timer = new Timer(my.bonus);
-		my.timer.start(1000, 10);
+		my.timer = new Timer();
+		my.timer.start(1000, 5);
 		
 		
 	
@@ -143,6 +143,55 @@ chromePainters.game = function(spec) {
 	};
 	
 	var update = function() {
+		if(my.timer.addBonus === 1) { 
+			my.timer.addBonus = 0;	
+			//deaktywacja poprzedniego bonusu
+			if(my.bonus.width === -1) {
+			my.paintersManager.setLineWidth({
+											index: 0,
+											width: 15 });
+			}
+			else if(my.bonus.oneColor === -1) {
+				my.paintersManager.setOwnColor();
+			}
+			else if(my.bonus.speed === -1) {
+				my.paintersManager.setSpeed({
+											index: 2,
+											speed: 1 });
+			}
+			else if(my.bonus.stopOthers === -1) {
+				my.paintersManager.setStopOthers({
+												startAll: 1,
+												speed: 1 });
+			}
+			my.bonus.deactivateBonus();
+			my.bonus.removeBonus();	//usuniêcie ze sceny
+			my.bonus.loadBonus();
+		}
+		//nowy bonus
+		if(my.bonus.width === 1) {
+			my.paintersManager.setLineWidth({
+											index: 0,
+											width: 30 });
+			my.bonus.checkBonus();
+		}
+		else if(my.bonus.oneColor === 1) {
+			my.paintersManager.setOneColor({
+											index: 1 });
+			my.bonus.checkBonus();
+		}
+		else if(my.bonus.speed === 1) {
+			my.paintersManager.setSpeed({
+											index: 2,
+											speed: 3 });
+			my.bonus.checkBonus();
+		}
+		else if(my.bonus.stopOthers === 1) {
+			my.paintersManager.setStopOthers({
+											index: 0,
+											speed: 0 });
+			my.bonus.checkBonus();
+		}
 		my.paintersManager.steering();
 		my.controls.update();
 		my.stats.update();

@@ -14,7 +14,9 @@ chromePainters.painter2d = function(spec) {
 	my.ypos = spec.ypos;
 	my.angle = spec.angle;
 	my.color = spec.color;
-	
+	my.ownColor = spec.color;
+	my.lineWidth = 15;
+
 	// funkcja prywatna. Takze moglaby byc podpieta od razu do 'my',
 	// ale bez podpinania mozemy jej uzywac w obrebie tego obiektu
 	// z poziomu innych funkcji bez uzywania slowa kluczowego this.
@@ -25,7 +27,7 @@ chromePainters.painter2d = function(spec) {
 		my.ypos -= step * Math.cos(my.angle);
 
 		spec.context.lineTo(my.xpos + spec.gridSizeX/2, my.ypos + spec.gridSizeY/2);
-		spec.context.lineWidth = 15;
+		spec.context.lineWidth = my.lineWidth;
 		spec.context.strokeStyle = my.color;
 		spec.context.lineCap = 'round';
 		spec.context.stroke();
@@ -35,9 +37,23 @@ chromePainters.painter2d = function(spec) {
 		my.angle += angle;
 	};
 	
+	var setLineWidth = function(width) {
+		my.lineWidth = width;
+	};
+	
+	var setOneColor = function(color) {
+		my.color = color;
+	};
+	
+	var setOwnColor = function() {
+		my.color = my.ownColor;
+	};
 	// przypisanie ponizszych rzeczy do that (a nastepnie zwrocenie that)
 	// czyni te skladniki skladnikami publicznymi.
 	that.goForward = goForward;
 	that.turnLeft = turnLeft;
+	that.setLineWidth = setLineWidth;
+	that.setOneColor = setOneColor;
+	that.setOwnColor = setOwnColor;
 	return that;
 };
