@@ -1,0 +1,39 @@
+#canvas {
+	display: none;
+
+}
+
+#timerGui{
+	position: absolute;
+	top: 0;
+}
+
+#gameContainer {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+#gui {
+	position: absolute;
+	left: 40%;
+	width: 20%;
+	top: 40px;
+	border-radius: 10px;
+	background: #f2f2f2;
+}
+	#gui ul {
+		padding: 20px;
+	}
+		#gui ul li {
+			cursor: pointer;
+			list-style: none;
+			text-align: center;
+			font-size: 24px;
+			font-family: verdana;
+			margin-bottom: 15px;
+			height: 26px;
+		}
+			#gui ul li:hover {
+				font-size:26px;
+			}

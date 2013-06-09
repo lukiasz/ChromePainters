@@ -62,6 +62,8 @@ chromePainters.game = function(spec) {
 
 		my.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		container = document.createElement('div');
+		container.setAttribute("id", "gameContainer");
+
 		document.body.appendChild(container);
 		container.appendChild(my.renderer.domElement);
 		THREEx.WindowResize(my.renderer, my.camera.camera);
@@ -218,5 +220,6 @@ chromePainters.game = function(spec) {
 	that.update = update;
 	that.animate = animate;
 	that.init = init;
+	that.gui = new chromePainters.gui();
 	return that;
 }
