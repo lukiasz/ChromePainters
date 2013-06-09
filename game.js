@@ -128,7 +128,7 @@ chromePainters.game = function(spec) {
 		 });
 		my.bonus.init();
 		
-		my.timer = new Timer();
+		my.timer = new chromePainters.timer();
 		my.timer.start(1000, 5);
 		
 		

@@ -1,51 +1,61 @@
-function Timer() {
-	this.elem = document.getElementById('timerGui');
-	this.progress = 0;
-	this.addBonus = 0;
-}
+var chromePainters = chromePainters || {};
 
-Timer.prototype.start = function (interval, gameLength) {
-	this.interval = interval || 1000;
+chromePainters.timer = function(spec) {
+	var that = {};
+	var my = {};
+	spec = spec || {};
+	my.callbackFinish = spec.callbackFinish;
+	my.elem = document.getElementById('timerGui');
+	that.progress = 0;
+	that.addBonus = 0;
 	
-	// gameLength = 4 segmenty po 5 okresow interval
-	this.gameLength = gameLength || 4;
-	this.gameLength *= 10;
-	this.gameLength -= 1;
-	this.elem.innerHTML = "";
-	var that = this;
-    this.timer = setInterval(function(){that.update()},this.interval);
-}
+	var start = function(interval, gameLength) {
+		my.interval = interval || 1000;
+	
+		// gameLength = 4 segmenty po 5 okresow interval
+		my.gameLength = gameLength || 4;
+		my.gameLength *= 10;
+		my.gameLength -= 1;
+		my.elem.innerHTML = "";
+		//var that = my;
+		my.timer = setInterval(function(){that.update()},my.interval);
+	};
 
-Timer.prototype.stop = function () {
-    clearInterval(this.timer);
-}
-
-
-Timer.prototype.update = function () {
-	this.progress += 1;
-	this.elem.innerHTML = "[";
-	for (var i = 0; i < this.progress; ++i) {
-		if (i % 10 === 9) {
-			this.elem.innerHTML += "_";
-		}	
-		else {
-			this.elem.innerHTML += "#";
+	var stop = function() {
+		clearInterval(my.timer);
+	};
+	
+	var update = function() {
+		that.progress += 1;
+		my.elem.innerHTML = "[";
+		for (var i = 0; i < that.progress; ++i) {
+			if (i % 10 === 9) {
+				my.elem.innerHTML += "_";
+			}	
+			else {
+				my.elem.innerHTML += "#";
+			}
 		}
-	}
-	
-	for (i = 0; i < this.gameLength - this.progress; ++i) {
-		this.elem.innerHTML += "_";
 		
-	}
-	this.elem.innerHTML += "]";
-	
-	if((this.progress-1) % 10 === 9) {
-		this.addBonus=1;
-	}
+		for (i = 0; i < my.gameLength - that.progress; ++i) {
+			my.elem.innerHTML += "_";
+			
+		}
+		my.elem.innerHTML += "]";
 		
-	if (this.progress === this.gameLength) {
-		// TODO: Wojtek wyœwietlanie statystyk
-		alert("koniec gry, statystyki");
-		this.stop();
-	}
-}
+		if((that.progress-1) % 10 === 9) {
+			that.addBonus=1;
+		}
+			
+		if (that.progress === my.gameLength) {
+			// TODO: Wojtek wyœwietlanie statystyk
+			alert("koniec gry, statystyki");
+			my.stop();
+		}
+	};
+	
+	that.update = update;
+	that.stop = stop;
+	that.start = start;
+	return that;
+};
