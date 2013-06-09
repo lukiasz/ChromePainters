@@ -53,7 +53,7 @@ chromePainters.timer = function(spec) {
 				my.callbackFinish();
 			}
 			alert("koniec gry, statystyki");
-			my.stop();
+			that.stop();
 		}
 	};
 	

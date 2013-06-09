@@ -139,7 +139,7 @@ chromePainters.game = function(spec) {
 		my.bonus.init();
 		
 		my.timer = new chromePainters.timer({
-		callbackFinish: function() { debugger; my.audioManager.turnOnMenuMusic(); }});
+		callbackFinish: function() { my.audioManager.turnOnMenuMusic(); }});
 		my.timer.start(1000, 5);
 		
 		
