@@ -18,10 +18,18 @@ chromePainters.game = function(spec) {
 	my.paintersManager;
 	my.controls;
 	my.bonus;
+	my.audioManager;
 	
 	var init = function() {
-	
 		
+		my.audioManager = new chromePainters.audioManager({
+			menuMusic: 'chromePainters.ogg',
+			gameMusic: 'chromePainters.ogg',
+			bonusSound: 'bonusSound.ogg',
+			collisionSound: 'collisionSound.ogg'});
+		my.audioManager.init();
+		
+		//my.audioManager.turnOnMenuMusic();
 		my.scene = new THREE.Scene();
 		
 		var SCREEN_WIDTH = window.innerWidth,
@@ -130,7 +138,8 @@ chromePainters.game = function(spec) {
 		 });
 		my.bonus.init();
 		
-		my.timer = new Timer();
+		my.timer = new chromePainters.timer({
+		callbackFinish: function() { debugger; my.audioManager.turnOnMenuMusic(); }});
 		my.timer.start(1000, 5);
 		
 		
