@@ -49,6 +49,9 @@ chromePainters.timer = function(spec) {
 			
 		if (that.progress === my.gameLength) {
 			// TODO: Wojtek wyœwietlanie statystyk
+			if (my.callbackFinish) {
+				my.callbackFinish();
+			}
 			alert("koniec gry, statystyki");
 			my.stop();
 		}
