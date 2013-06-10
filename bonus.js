@@ -16,9 +16,18 @@ chromePainters.bonus = function(spec) {
 	my.gridSizeY = spec.gridSizeY;
 	
 	var init = function() {
-		var material = new THREE.MeshBasicMaterial({color: my.color, opacity: 1});
-		my.bonus = new THREE.Mesh(new THREE.CubeGeometry(25,25,25), material);
-		my.bonus.position.set(my.xpos, 15, my.ypos);
+	var loader = new THREE.ColladaLoader();
+		loader.options.convertUpAxis = false;
+
+		loader.load('./models/gift.dae', function (collada) {
+			my.bonus = collada.scene;
+			my.bonus.doublesided = true;
+			my.bonus.scale.x = my.bonus.scale.y = my.bonus.scale.z = 12;
+			my.bonus.position.set(50, 15, 50);
+			my.bonus.updateMatrix();
+
+
+		});
 	};
 	
 	var setBonusType = function() {
@@ -70,7 +79,7 @@ chromePainters.bonus = function(spec) {
 				}
 			}
 		}
-		my.bonus.material.color = my.color;
+
 	};
 	
 	var  setCoordinates = function() {
