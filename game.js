@@ -151,7 +151,7 @@ chromePainters.game = function(spec) {
 			my.audioManager.stopGameMusic();
 			my.gui.statistics.display(my.statistics.getColorStats());
 			my.audioManager.playEndSound();
-			setTimeout(my.audioManager.turnOnMenuMusic,2000);
+			setTimeout(my.audioManager.turnOnMenuMusic,5000);
 			}});
 		my.timer.start(1000, 5);
 		

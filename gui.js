@@ -24,6 +24,7 @@ chromePainters.gui = function(game)
 		var zamknij = function(caller)
 		{
 			$($(caller).parent()).hide(300);
+			setTimeout(function() {location.reload() },5000);
 		}
 		
 		thats.zamknij = zamknij;
@@ -53,7 +54,7 @@ chromePainters.gui = function(game)
 						color = "niebieski";
 						break;
 				}
-				$('#statystki .inside').append($("<p>Color <b>"+ color + "</b> posiada " + params[iterator].percentage.toFixed(3) +"% </p>"));
+				$('#statystki .inside').append($("<p>Kolor <b>"+ color + "</b> posiada " + params[iterator].percentage.toFixed(3) +"% </p>"));
 			}
 			
 			$('#statystki').show(500);
