@@ -4,6 +4,8 @@ chromePainters.paintersManager = function(spec) {
 	var that = {};
 	var my = {};
 	
+	my.gui = spec.gui;
+	my.statistics = spec.statistics;
 	my.gridSize = spec.gridSize;
     my.amount = spec.amount;
 	my.grid = spec.grid;
@@ -63,8 +65,7 @@ chromePainters.paintersManager = function(spec) {
         //-----------------Debugging-----------------------------
         if (my.keyboard.pressed("r")) {
             // do testow statystyk. mozna spokojnie wywalic
-            var statistics = new Statistics(my.grid.canvas);
-            statistics.getColorStats();
+			my.gui.statistics.display(my.statistics.getColorStats());
             //debugger;
         }
         if (my.keyboard.pressed("F"))

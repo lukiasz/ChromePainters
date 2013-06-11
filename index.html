@@ -57,6 +57,8 @@ uniform float textRepeat;
 
 
 <script src="paintersManager.js"></script>
+
+<script src="jquery-1.9.1.min.js"></script>
 <script src="gui.js"></script>
 <script src="game.js"></script>
 <script src="program.js"></script>
@@ -66,9 +68,21 @@ uniform float textRepeat;
 <link rel="stylesheet" type="text/css" href="css/gui.css">
 <div id="gui">
 	<ul>
-		<li onclick="g.gui.menu.nowaGra()">Nowa Gra</li>
-		<li>Autorzy</li>
+		<li onclick="menu.nowaGra()">Nowa Gra</li>
+		<li onclick="menu.autorzy()">Autorzy</li>
 	</ul>
+</div>
+
+<div id="Autorzy" class="hidden">
+	<h1>Justyna Barwiñska</h1>
+	<h1>£ukasz Olender</h1>
+	<h1>Wojciech Jaszczak</h1>
+	<h1>Grzegorz Faryna</h1>
+	<a onclick="menu.zamknij(this)">zamknij</a>
+</div>
+<div id="statystki" class="hidden">
+	<div class="inside"></div>
+	<a onclick="menu.zamknij(this)">zamknij</a>
 </div>
 
 </body></html>

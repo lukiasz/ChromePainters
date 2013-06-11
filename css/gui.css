@@ -37,3 +37,27 @@
 			#gui ul li:hover {
 				font-size:26px;
 			}
+			
+#autorzy {
+	display: none;
+	position: absolute;
+	top: 10px;
+	left: 40%;
+	width: 20%;
+	background: black;
+	border-radius: 20px;
+	padding: 30px;
+	border: 1px dashed white;
+	color: white;
+}	
+
+#statystki {
+    position: absolute;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid black;
+    padding: 20px;
+}		
+
+.hidden{
+	display: none;
+}	
