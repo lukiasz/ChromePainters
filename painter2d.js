@@ -15,7 +15,7 @@ chromePainters.painter2d = function(spec) {
 	my.angle = spec.angle;
 	my.color = spec.color;
 	my.ownColor = spec.color;
-	my.lineWidth = 15;
+	my.lineWidth = 30;
 
 	// funkcja prywatna. Takze moglaby byc podpieta od razu do 'my',
 	// ale bez podpinania mozemy jej uzywac w obrebie tego obiektu
