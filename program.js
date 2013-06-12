@@ -1,5 +1,3 @@
 // Ale tu czysto mmmm :)
-
-var g = new chromePainters.game();
-//g.init();
-//g.animate();
+var _g = new chromePainters.game();
+var menu = _g.menu;

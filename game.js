@@ -1,4 +1,4 @@
-var chromePainters = chromePainters || {};
+ï»¿var chromePainters = chromePainters || {};
 
 chromePainters.game = function(spec) {
 	var that = {};
@@ -19,17 +19,20 @@ chromePainters.game = function(spec) {
 	my.controls;
 	my.bonus;
 	my.audioManager;
+	my.statistics;
+	my.gui;
 	
 	var init = function() {
 		
 		my.audioManager = new chromePainters.audioManager({
-			menuMusic: 'chromePainters.ogg',
-			gameMusic: 'chromePainters.ogg',
-			bonusSound: 'bonusSound.ogg',
-			collisionSound: 'collisionSound.ogg'});
+			menuMusic: 'song1.ogg',
+			gameMusic: 'song2.ogg',
+			bonusSound: 'bonus.ogg',
+			collisionSound: 'collision.ogg',
+			endSound: 'end.ogg'});
 		my.audioManager.init();
 		
-		//my.audioManager.turnOnMenuMusic();
+		
 		my.scene = new THREE.Scene();
 		
 		var SCREEN_WIDTH = window.innerWidth,
@@ -91,14 +94,14 @@ chromePainters.game = function(spec) {
 		
 		my.light.init();
 
-		// T³o
+		// Tï¿½o
 		var bgTexture = THREE.ImageUtils.loadTexture("images/background.jpg");
 		my.background = new THREE.Mesh(
 			new THREE.PlaneGeometry(2, 2, 0),
 			new THREE.MeshBasicMaterial({map: bgTexture})
 		);
 
-		// Render t³a jest niezale¿ny od pozycji kamery
+		// Render tï¿½a jest niezaleï¿½ny od pozycji kamery
 		my.background.material.depthTest = false;
 		my.background.material.depthWrite = false;
 
@@ -122,11 +125,16 @@ chromePainters.game = function(spec) {
 		});
 		my.grid3d.init();
 		
+		my.statistics = new chromePainters.statistics(my.grid.canvas);
+		my.statistics.init();
+		
 		my.paintersManager = new chromePainters.paintersManager({
 			gridSize: gridSize,
 			amount: 3,
 			grid: my.grid,
-			scene: my.scene
+			scene: my.scene,
+			statistics: my.statistics,
+			gui: my.gui
 			});
 
 		my.paintersManager.init();
@@ -139,10 +147,15 @@ chromePainters.game = function(spec) {
 		my.bonus.init();
 		
 		my.timer = new chromePainters.timer({
-		callbackFinish: function() { my.audioManager.turnOnMenuMusic(); }});
+		callbackFinish: function() { 
+			my.audioManager.stopGameMusic();
+			my.gui.statistics.display(my.statistics.getColorStats());
+			my.audioManager.playEndSound();
+			setTimeout(my.audioManager.turnOnMenuMusic,5000);
+			}});
 		my.timer.start(1000, 5);
 		
-		
+		my.audioManager.turnOnGameMusic();
 	
 	};
 	
@@ -176,7 +189,7 @@ chromePainters.game = function(spec) {
 												speed: 1 });
 			}
 			my.bonus.deactivateBonus();
-			my.bonus.removeBonus();	//usuniêcie ze sceny
+			my.bonus.removeBonus();	//usuniï¿½cie ze sceny
 			my.bonus.loadBonus();
 		}
 		//nowy bonus
@@ -215,11 +228,12 @@ chromePainters.game = function(spec) {
 		my.renderer.render(my.scene, my.camera.camera);
 	};
 	
+	my.gui= new chromePainters.gui(that);
 	
-	
+	that.menu = my.gui.menu;
 	that.update = update;
 	that.animate = animate;
 	that.init = init;
-	that.gui = new chromePainters.gui();
+	
 	return that;
 }

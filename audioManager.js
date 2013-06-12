@@ -6,6 +6,7 @@ chromePainters.audioManager = function(spec) {
 	
 	my.gameIsPlaying = false;
 	my.menuIsPlaying = false;
+	
 	var init = function() {
 	
 		my.menuMusic = document.createElement('audio');
@@ -27,55 +28,86 @@ chromePainters.audioManager = function(spec) {
 		source = document.createElement('source');
 		source.src = 'sounds/' + spec.bonusSound;
 		my.bonusSound.appendChild(source);
+		
+		my.endSound = document.createElement('audio');
+		source = document.createElement('source');
+		source.src = 'sounds/' + spec.endSound;
+		my.endSound.appendChild(source);
 	};
 	
 	var turnOnMenuMusic = function() {
-	debugger;
-		if (my.gameIsPlaying) {
+		shuffleMusic();
+		stopGameMusic();
 		
-			my.gameMusic.repeat = false;
-			my.gameMusic.currentTime = 0;
-			my.gameMusic.pause();
-			my.gameIsPlaying = false;
-		}
 		if (my.menuIsPlaying) {
 			return;
 		}
 		my.menuMusic.play();
 		my.menuMusic.loop = true;
 		my.menuIsPlaying = true;
+		
 	};
 	
 	var turnOnGameMusic = function() {
-		if (my.menuIsPlaying) {
-			my.menuMusic.repeat = false;
-			my.menuMusic.currentTime = 0;
-			my.menuMusic.pause();
-			my.menuMusic = false;
-		}
+		shuffleMusic();
+		stopMenuMusic();
+		
 		if (my.gameIsPlaying) {
 			return;
 		}
-		my.menuMusic.repeat = false;
-		my.menuMusic.currentTime = 0;
-		my.menuMusic.pause();
+
 		my.gameMusic.play();
 		my.gameMusic.loop = true;
 		my.gameIsPlaying = true;
+		
 	};
 	
 	var playBonusSound = function() {
 		my.bonusSound.play();
 	};
 	
+	var stopGameMusic = function() {
+		if (my.gameIsPlaying) {
+			my.gameMusic.repeat = false;
+			my.gameMusic.currentTime = 0;
+			my.gameMusic.pause();
+			my.gameIsPlaying = false;
+		}
+	};
+	
+	var stopMenuMusic = function() {
+		if (my.menuIsPlaying) {
+			my.menuMusic.repeat = false;
+			my.menuMusic.currentTime = 0;
+			my.menuMusic.pause();
+			my.menuMusic = false;
+		}
+	};
+	
+	var playEndSound = function() {
+		my.endSound.play();
+	};
+	
 	var playCollisionSound = function() {
 		my.collisionSound.play();
 	};
 	
+	var shuffleMusic = function() {
+		if (Math.random() > 0.5) {
+			var tmp = my.menuMusic;
+			my.menuMusic = my.gameMusic;
+			my.gameMusic = tmp;
+		}
+	}
+
 	that.init = init;
 	that.turnOnMenuMusic = turnOnMenuMusic;
 	that.turnOnGameMusic = turnOnGameMusic;
 	that.playBonusSound = playBonusSound;
+	that.playEndSound = playEndSound;
 	that.playCollisionSound = playCollisionSound;
+	that.stopGameMusic = stopGameMusic;
+	that.stopMenuMusic = stopMenuMusic;
+	
 	return that;
 };

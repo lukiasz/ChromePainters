@@ -6,6 +6,7 @@ chromePainters.timer = function(spec) {
 	spec = spec || {};
 	my.callbackFinish = spec.callbackFinish;
 	my.elem = document.getElementById('timerGui');
+	my.gui = spec.gui;
 	that.progress = 0;
 	that.addBonus = 0;
 	
@@ -52,7 +53,6 @@ chromePainters.timer = function(spec) {
 			if (my.callbackFinish) {
 				my.callbackFinish();
 			}
-			alert("koniec gry, statystyki");
 			that.stop();
 		}
 	};
