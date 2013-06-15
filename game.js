@@ -4,10 +4,10 @@ chromePainters.game = function(spec) {
 	var that = {};
 	var my = {};
 	
+	my.camera;
 	my.scene;
 	my.bgScene;
 	my.BgCam;
-	my.camera;
 	my.renderer;
 	my.stats;
 	my.light;
@@ -21,6 +21,7 @@ chromePainters.game = function(spec) {
 	my.audioManager;
 	my.statistics;
 	my.gui;
+	
 	
 	var init = function() {
 		
@@ -128,14 +129,16 @@ chromePainters.game = function(spec) {
 		my.statistics = new chromePainters.statistics(my.grid.canvas);
 		my.statistics.init();
 		
+		
+		that.playersAmount = that.playersAmount||4;
 		my.paintersManager = new chromePainters.paintersManager({
 			gridSize: gridSize,
-			amount: 3,
+			amount: that.playersAmount,
 			grid: my.grid,
 			scene: my.scene,
 			statistics: my.statistics,
 			gui: my.gui
-			});
+		});
 
 		my.paintersManager.init();
 		
@@ -149,7 +152,7 @@ chromePainters.game = function(spec) {
 		my.timer = new chromePainters.timer({
 		callbackFinish: function() { 
 			my.audioManager.stopGameMusic();
-			my.gui.statistics.display(my.statistics.getColorStats());
+			my.gui.statistics.display(my.statistics.getColorStats(that.playersAmount));
 			my.audioManager.playEndSound();
 			setTimeout(my.audioManager.turnOnMenuMusic,5000);
 			}});
@@ -230,6 +233,7 @@ chromePainters.game = function(spec) {
 	
 	my.gui= new chromePainters.gui(that);
 	
+	that.playersAmount;
 	that.menu = my.gui.menu;
 	that.update = update;
 	that.animate = animate;
