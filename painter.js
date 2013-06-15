@@ -28,8 +28,8 @@ chromePainters.painter = function(spec) {
 	
 		my.model2d = chromePainters.painter2d({
 			context: my.context,
-			xpos: my.xpos,
-			ypos: my.ypos,
+			xpos: -my.xpos,
+			ypos: -my.ypos,
 			angle: my.angle,
 			color: my.color,
 			gridSizeX: my.gridSizeX,

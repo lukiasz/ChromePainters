@@ -173,7 +173,7 @@ chromePainters.game = function(spec) {
 			if(my.bonus.width === -1) {
 			my.paintersManager.setLineWidth({
 											index: 0,
-											width: 15 });
+											width: 30 });
 			}
 			else if(my.bonus.oneColor === -1) {
 				my.paintersManager.setOwnColor();
@@ -196,7 +196,7 @@ chromePainters.game = function(spec) {
 		if(my.bonus.width === 1) {
 			my.paintersManager.setLineWidth({
 											index: 0,
-											width: 30 });
+											width: 60 });
 			my.bonus.checkBonus();
 		}
 		else if(my.bonus.oneColor === 1) {

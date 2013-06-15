@@ -20,8 +20,8 @@ chromePainters.paintersManager = function(spec) {
 		my.keyboard = new THREEx.KeyboardState();	
         for (var i = 0; i < my.amount; i++) {
             var painterTemp = new chromePainters.painter({
-                xpos: 0,
-                ypos: 0,
+                xpos: Math.sin(i/my.amount*2*Math.PI)*my.gridSize/3,
+                ypos: Math.cos(i/my.amount*2*Math.PI)*my.gridSize/3,
                 angle: 0,
                 color: colors[i],
                 scene: my.scene,

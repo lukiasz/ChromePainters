@@ -19,7 +19,7 @@ chromePainters.painter3d = function(spec) {
 			var model = collada.scene;
 			model.doublesided = true;
 			model.scale.x = model.scale.y = model.scale.z = 4;
-			model.position.set(self.xpos, 50, self.ypos);
+			model.position.set(self.xpos, 32, self.ypos);
 			model.updateMatrix();
 			self.scene.add(model);
 			self.brush = model;
