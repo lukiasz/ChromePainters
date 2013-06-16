@@ -36,6 +36,14 @@ chromePainters.painter2d = function(spec) {
     var knockback = function(vect) {
         my.xpos += vect.x;
         my.ypos += vect.z;
+        var a = (new THREE.Vector3(0,0,-1)).angleTo(vect);
+        if(a < 2*Math.PI && a > -2*Math.PI) // Do zapobiegania liczenia przy inicjalizacji obiektów
+            my.angle = a;
+
+    }
+    var wallblock = function(vect) {
+        my.xpos += vect.x;
+        my.ypos += vect.z;
     }
 	
 	var turnLeft = function(angle) {
@@ -61,5 +69,6 @@ chromePainters.painter2d = function(spec) {
 	that.setOneColor = setOneColor;
 	that.setOwnColor = setOwnColor;
     that.knockback = knockback;
+    that.wallblock = wallblock;
 	return that;
 };

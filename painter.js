@@ -47,6 +47,10 @@ chromePainters.painter = function(spec) {
         my.model3d.knockback(vect);
         my.model2d.knockback(vect);
     }
+    var wallblock = function(vect) {
+        my.model3d.wallblock(vect);
+        my.model2d.wallblock(vect);
+    }
 	
 	var turnLeft = function(angle) {
 		my.model3d.turnLeft(angle*my.speed);
@@ -79,6 +83,7 @@ chromePainters.painter = function(spec) {
 	that.init = init;
 	that.goForward = goForward;
     that.knockback = knockback;
+    that.wallblock = wallblock;
 	that.turnLeft = turnLeft;
 	that.setLineWidth = setLineWidth;
 	that.setOneColor = setOneColor;

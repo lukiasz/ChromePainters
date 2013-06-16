@@ -99,19 +99,19 @@ chromePainters.collisionManager = function(spec) {
 
             dist = (painters[i].collisionSphere.center.x + painters[i].collisionSphere.radius) - my.gridSize/2;
             if (dist > 0)
-                painters[i].knockback(new THREE.Vector3(dist,0,0));
+                painters[i].wallblock(new THREE.Vector3(dist,0,0));
 
             dist = (painters[i].collisionSphere.center.z + painters[i].collisionSphere.radius) - my.gridSize/2;
             if (dist > 0)
-                painters[i].knockback(new THREE.Vector3(0,0,dist));
+                painters[i].wallblock(new THREE.Vector3(0,0,dist));
 
             dist = (painters[i].collisionSphere.center.x - painters[i].collisionSphere.radius) + my.gridSize/2  ;
             if (dist < 0)
-                painters[i].knockback(new THREE.Vector3(dist,0,0));
+                painters[i].wallblock(new THREE.Vector3(dist,0,0));
 
             dist = (painters[i].collisionSphere.center.z - painters[i].collisionSphere.radius) + my.gridSize/2  ;
             if (dist < 0)
-                painters[i].knockback(new THREE.Vector3(0,0,dist));
+                painters[i].wallblock(new THREE.Vector3(0,0,dist));
         }
     };
 

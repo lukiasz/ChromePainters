@@ -35,6 +35,13 @@ chromePainters.painter3d = function(spec) {
     var knockback = function(vect) {
         my.brush.position.subVectors(my.brush.position, vect);
         my.collisionSphere.center = my.brush.position;
+        var a = (new THREE.Vector3(0,0,-1)).angleTo(vect);
+        if(a < 2*Math.PI && a > -2*Math.PI) // Do zapobiegania liczenia przy inicjalizacji obiektów
+            my.brush.rotation.y = a;
+    }
+    var wallblock = function(vect) {
+        my.brush.position.subVectors(my.brush.position, vect);
+        my.collisionSphere.center = my.brush.position;
     }
 	
 	var turnLeft = function(angle) {
@@ -45,6 +52,7 @@ chromePainters.painter3d = function(spec) {
 	that.goForward = goForward;
 	that.turnLeft = turnLeft;
     that.knockback = knockback;
+    that.wallblock = wallblock;
     that.collisionSphere = my.collisionSphere;
 
 	return that;
