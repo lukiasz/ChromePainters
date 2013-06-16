@@ -101,7 +101,7 @@ chromePainters.bonus = function(spec) {
 		addBonus();
 	};
 	
-	var activateBonus = function() {	//funkcja wywo³ywana po zebraniu bonusu
+	var activateBonus = function() {	//funkcja wywoï¿½ywana po zebraniu bonusu
 		if(that.speed === 1)
 		{
 			that.speed = -1;
@@ -121,7 +121,7 @@ chromePainters.bonus = function(spec) {
 	};
 	
 	var deactivateBonus = function() {
-		if(that.speed === 1 || that.speed === -1) {	//mo¿na te¿ nie zebraæ bonusu
+		if(that.speed === 1 || that.speed === -1) {	//moï¿½na teï¿½ nie zebraï¿½ bonusu
 			that.speed = -100;
 		}
 		else if(that.width === 1 || that.width === -1) {	
@@ -140,6 +140,10 @@ chromePainters.bonus = function(spec) {
 			activateBonus();
 		}
 	};
+
+    var getPosition = function() {
+        return new THREE.Vector3(my.xpos, 19, my.ypos);
+    }
 	
 	that.init = init;
 	that.setBonusType = setBonusType;
@@ -150,5 +154,7 @@ chromePainters.bonus = function(spec) {
 	that.checkBonus = checkBonus;
 	that.removeBonus = removeBonus;
 	that.deactivateBonus = deactivateBonus;
+    that.getPosition = getPosition;
+
 	return that;
 };

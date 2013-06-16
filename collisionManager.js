@@ -12,15 +12,20 @@ chromePainters.collisionManager = function(spec) {
 
     };
 
-    var bonusCollision = function(spec) {
+    var bonusCollision = function() {
         var painters = my.paintersManager.getPainters();
+        var bonusVect = my.bonus.getPosition();
+        var distVect = new THREE.Vector3(0,0,0);
         for( var i = 0; i < my.paintersManager.getPaintersCount(); i++) {
-
+            distVect.subVectors(bonusVect,painters[i].collisionSphere.center);
+            var lenghttt = distVect.length();
+            if (lenghttt < 20)
+                return i;
         }
-
+        return -1;
     };
 
-    var paintersCollision = function(spec) {
+    var paintersCollision = function() {
         var painters = my.paintersManager.getPainters();
         for( var i = 0; i < my.paintersManager.getPaintersCount()-1; i++) {
             for( var j = i+1; j < my.paintersManager.getPaintersCount(); j++) {
@@ -36,7 +41,7 @@ chromePainters.collisionManager = function(spec) {
         }
     };
 
-    var wallCollision = function(spec) {
+    var wallCollision = function() {
         var painters = my.paintersManager.getPainters();
         for( var i = 0; i < my.paintersManager.getPaintersCount(); i++) {
             if(painters[i].collisionSphere.center.x + painters[i].collisionSphere.radius > my.gridSize/2)
@@ -53,7 +58,6 @@ chromePainters.collisionManager = function(spec) {
     var collision = function() {
         wallCollision();
         paintersCollision();
-        bonusCollision();
     }
 
 

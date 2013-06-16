@@ -177,6 +177,9 @@ chromePainters.game = function(spec) {
 	};
 	
 	var update = function() {
+        // Jezeli zaszla kolizja pedzel-bonus zwraca index pedzla else -1.
+        var painterIndex = my.collisionManager.bonusCollision();
+
 		if(my.timer.addBonus === 1) { 
 			my.timer.addBonus = 0;	
 			//deaktywacja poprzedniego bonusu
