@@ -22,10 +22,11 @@ chromePainters.game = function(spec) {
 	my.statistics;
 	my.gui;
     my.collisionManager;
-	
+	my.indexOfPainter;
 	
 	var init = function() {
 		
+		my.indexOfPainter = 0;
 		my.audioManager = new chromePainters.audioManager({
 			menuMusic: 'song1.ogg',
 			gameMusic: 'song2.ogg',
@@ -185,7 +186,7 @@ chromePainters.game = function(spec) {
 			//deaktywacja poprzedniego bonusu
 			if(my.bonus.width === -1) {
 			my.paintersManager.setLineWidth({
-											index: 0,
+											index: my.indexOfPainter,
 											width: 30 });
 			}
 			else if(my.bonus.oneColor === -1) {
@@ -193,41 +194,45 @@ chromePainters.game = function(spec) {
 			}
 			else if(my.bonus.speed === -1) {
 				my.paintersManager.setSpeed({
-											index: 2,
-											speed: 1 });
+											index: my.indexOfPainter,
+											speed: 3 });
 			}
 			else if(my.bonus.stopOthers === -1) {
 				my.paintersManager.setStopOthers({
-												startAll: 1,
-												speed: 1 });
+												startAll: my.indexOfPainter,
+												speed: 3 });
 			}
 			my.bonus.deactivateBonus();
 			my.bonus.removeBonus();	//usuni�cie ze sceny
 			my.bonus.loadBonus();
 		}
 		//nowy bonus
-		if(my.bonus.width === 1) {
-			my.paintersManager.setLineWidth({
-											index: 0,
-											width: 60 });
-			my.bonus.checkBonus();
-		}
-		else if(my.bonus.oneColor === 1) {
-			my.paintersManager.setOneColor({
-											index: 1 });
-			my.bonus.checkBonus();
-		}
-		else if(my.bonus.speed === 1) {
-			my.paintersManager.setSpeed({
-											index: 2,
-											speed: 3 });
-			my.bonus.checkBonus();
-		}
-		else if(my.bonus.stopOthers === 1) {
-			my.paintersManager.setStopOthers({
-											index: 0,
-											speed: 0 });
-			my.bonus.checkBonus();
+		if(painterIndex != -1) {
+			my.bonus.removeBonus();
+			my.indexOfPainter = painterIndex;
+			if(my.bonus.width === 1) {
+				my.paintersManager.setLineWidth({
+												index: painterIndex,
+												width: 60 });
+				my.bonus.checkBonus();
+			}
+			else if(my.bonus.oneColor === 1) {
+				my.paintersManager.setOneColor({
+												index: painterIndex });
+				my.bonus.checkBonus();
+			}
+			else if(my.bonus.speed === 1) {
+				my.paintersManager.setSpeed({
+												index: painterIndex,
+												speed: 6 });
+				my.bonus.checkBonus();
+			}
+			else if(my.bonus.stopOthers === 1) {
+				my.paintersManager.setStopOthers({
+												index: painterIndex,
+												speed: 0 });
+				my.bonus.checkBonus();
+			}
 		}
 		my.paintersManager.steering();
 		my.controls.update();
