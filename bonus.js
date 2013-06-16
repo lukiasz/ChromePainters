@@ -83,8 +83,8 @@ chromePainters.bonus = function(spec) {
 	};
 	
 	var  setCoordinates = function() {
-		my.xpos = (Math.random()*1000) % (my.gridSizeX-my.gridSizeX/2);
-		my.ypos = (Math.random()*1000) % (my.gridSizeY-my.gridSizeY/2);
+		my.xpos = (Math.random()*1000) % my.gridSizeX-my.gridSizeX/2;
+		my.ypos = (Math.random()*1000) % my.gridSizeY-my.gridSizeY/2;
 		my.bonus.position.set(my.xpos, 15, my.ypos);
 	};
 
