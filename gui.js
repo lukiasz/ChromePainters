@@ -7,10 +7,12 @@ chromePainters.gui = function(game)
 	var menu = function()
 	{
 		var thats = {};
-		var nowaGra = function()
+		var nowaGra = function(amountOfPlayers)
 		{
+			game.playersAmount = amountOfPlayers;
 			game.init();
 			document.getElementById('gui').setAttribute("style","display: none");
+			document.getElementsByClassName('painter');
 			game.animate();
 		};
 		
@@ -20,6 +22,14 @@ chromePainters.gui = function(game)
 			//alert("Game made by: Justyna Barwiñska, £ukasz Olender,Wojciech Jaszczak, Grzegorz Faryna");
 		}
 		
+		var init = function()
+		{
+			var options = document.getElementsByClassName('painter');
+			options[0].onclick = function () {thats.nowaGra(2)};
+			options[1].onclick = function () {thats.nowaGra(3)};
+			options[2].onclick = function () {thats.nowaGra(4)};
+		}
+
 		
 		var zamknij = function(caller)
 		{
@@ -27,6 +37,7 @@ chromePainters.gui = function(game)
 			setTimeout(function() {location.reload() },5000);
 		}
 		
+		thats.init = init;
 		thats.zamknij = zamknij;
 		thats.autorzy = autorzy;
 		thats.nowaGra = nowaGra;

@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <body>
 <div id="timerGui"></div>
 <script id="vshader" type="x-shader/x-vertex">
@@ -70,18 +70,31 @@ uniform float textRepeat;
 <link rel="stylesheet" type="text/css" href="css/gui.css">
 <div id="gui">
 	<ul>
-		<li onclick="menu.nowaGra()">Nowa Gra</li>
+		<li>
+		Nowa Gra</br>
+		<div class="smallerText">
+			Ilość graczy:
+			<div class="painters">
+				<a class="painter twoPlayers">2</a>
+				<a class="painter threePlayers">3</a>
+				<a class="painter fourPlayers">4</a>
+			</div>
+		</div>
+		
+		</li>
+		
 		<li onclick="menu.autorzy()">Autorzy</li>
 	</ul>
 </div>
 
 <div id="Autorzy" class="hidden">
-	<h1>Justyna Barwi�ska</h1>
-	<h1>�ukasz Olender</h1>
+	<h1>Justyna Barwińska</h1>
+	<h1>Łukasz Olender</h1>
 	<h1>Wojciech Jaszczak</h1>
 	<h1>Grzegorz Faryna</h1>
 	<a onclick="menu.zamknij(this)">zamknij</a>
 </div>
+
 <div id="statystki" class="hidden">
 	<div class="inside"></div>
 	<a onclick="menu.zamknij(this)">zamknij</a>
