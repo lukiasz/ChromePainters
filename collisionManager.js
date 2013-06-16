@@ -44,14 +44,23 @@ chromePainters.collisionManager = function(spec) {
     var wallCollision = function() {
         var painters = my.paintersManager.getPainters();
         for( var i = 0; i < my.paintersManager.getPaintersCount(); i++) {
-            if(painters[i].collisionSphere.center.x + painters[i].collisionSphere.radius > my.gridSize/2)
-                painters[i].knockback(new THREE.Vector3(1,0,0));
-            if(painters[i].collisionSphere.center.z + painters[i].collisionSphere.radius > my.gridSize/2)
-                painters[i].knockback(new THREE.Vector3(0,0,1));
-            if(painters[i].collisionSphere.center.x - painters[i].collisionSphere.radius < -my.gridSize/2)
-                painters[i].knockback(new THREE.Vector3(-1,0,0));
-            if(painters[i].collisionSphere.center.z - painters[i].collisionSphere.radius < -my.gridSize/2)
-                painters[i].knockback(new THREE.Vector3(0,0,-1));
+            var dist;
+
+            dist = (painters[i].collisionSphere.center.x + painters[i].collisionSphere.radius) - my.gridSize/2;
+            if (dist > 0)
+                painters[i].knockback(new THREE.Vector3(dist,0,0));
+
+            dist = (painters[i].collisionSphere.center.z + painters[i].collisionSphere.radius) - my.gridSize/2;
+            if (dist > 0)
+                painters[i].knockback(new THREE.Vector3(0,0,dist));
+
+            dist = (painters[i].collisionSphere.center.x - painters[i].collisionSphere.radius) + my.gridSize/2  ;
+            if (dist < 0)
+                painters[i].knockback(new THREE.Vector3(dist,0,0));
+
+            dist = (painters[i].collisionSphere.center.z - painters[i].collisionSphere.radius) + my.gridSize/2  ;
+            if (dist < 0)
+                painters[i].knockback(new THREE.Vector3(0,0,dist));
         }
     };
 
