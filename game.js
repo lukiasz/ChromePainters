@@ -187,7 +187,7 @@ chromePainters.game = function(spec) {
 			if(my.bonus.width === -1) {
 			my.paintersManager.setLineWidth({
 											index: my.indexOfPainter,
-											width: 30 });
+											width: 40 });
 			}
 			else if(my.bonus.oneColor === -1) {
 				my.paintersManager.setOwnColor();
