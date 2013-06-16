@@ -7,6 +7,7 @@ chromePainters.collisionManager = function(spec) {
     my.paintersManager = spec.paintersManager;
     my.gridSize = spec.gridSize;
     my.bonus = spec.bonus;
+    my.audioManager = spec.audioManager;
     var init = function() {
 
 
@@ -19,8 +20,12 @@ chromePainters.collisionManager = function(spec) {
         for( var i = 0; i < my.paintersManager.getPaintersCount(); i++) {
             distVect.subVectors(bonusVect,painters[i].collisionSphere.center);
             var lenghttt = distVect.length();
-            if (lenghttt < 20)
+            if (lenghttt < 20) {
+                my.audioManager.playBonusSound();
+                painters[i].setHasBonus(true);
                 return i;
+            }
+
         }
         return -1;
     };
@@ -34,6 +39,11 @@ chromePainters.collisionManager = function(spec) {
                 vect1.subVectors(vect1, vect2);
                 var dist = painters[i].collisionSphere.radius + painters[j].collisionSphere.radius;
                 if(vect1.length() < dist) {
+                    my.audioManager.playCollisionSound();
+                    if( painters[i].getHasBonus() || painters[j].getHasBonus() ) {
+                        my.bonus.deactivateBonus();
+                        painters[i].setHasBonus(false);
+                    }
                     painters[j].knockback(vect1);
                     painters[i].knockback(vect1.negate());
                 }
