@@ -4,7 +4,7 @@ chromePainters.bonus = function(spec) {
 	var that = {};
 	var my = {};
 	
-	my.xpos = spec.xpos || 0;
+	my.xpos = spec.xpos || 3*spec.gridSizeX;
 	my.ypos = spec.ypos || 0;
 	my.color = spec.color || 0x000000;
 	that.speed = spec.speed || 0;
@@ -94,6 +94,7 @@ chromePainters.bonus = function(spec) {
 	
 	var removeBonus = function() {
 		my.scene.remove(my.bonus);
+        my.xpos = 3*my.gridSizeX;
 	};
 	var loadBonus = function() {
 		setBonusType();
