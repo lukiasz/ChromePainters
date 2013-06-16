@@ -13,6 +13,7 @@ chromePainters.paintersManager = function(spec) {
 	my.keyboard;
 	my.clock;
 	my.painters = [];
+
 	
 	var colors = ['red', 'blue', 'green', 'yellow'];
 	var init = function() {
@@ -59,6 +60,8 @@ chromePainters.paintersManager = function(spec) {
                 my.painters[i].turnLeft(-0.1);
                 rotation_matrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
             }
+
+
         }
 
 
@@ -75,6 +78,8 @@ chromePainters.paintersManager = function(spec) {
             //sphere.matrix.multiply(rotation_matrix);
             //sphere.rotation.setEulerFromRotationMatrix(sphere.matrix);
         }
+
+
     };
 	
 	var setLineWidth = function(spec) {
@@ -107,6 +112,14 @@ chromePainters.paintersManager = function(spec) {
 		}
 	};
 
+    var getPainters = function() {
+        return my.painters;
+    }
+
+    var getPaintersAmount = function() {
+        return my.amount;
+    }
+
 	that.steering = steering;
 	that.init = init;
 	that.setLineWidth = setLineWidth;
@@ -114,5 +127,7 @@ chromePainters.paintersManager = function(spec) {
 	that.setSpeed = setSpeed;
 	that.setStopOthers = setStopOthers;
 	that.setOwnColor = setOwnColor;
+    that.getPainters = getPainters;
+    that.getPaintersCount = getPaintersAmount;
 	return that;
 };

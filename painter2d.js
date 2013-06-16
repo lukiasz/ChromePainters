@@ -15,7 +15,7 @@ chromePainters.painter2d = function(spec) {
 	my.angle = spec.angle;
 	my.color = spec.color;
 	my.ownColor = spec.color;
-	my.lineWidth = 30;
+	my.lineWidth = 40;
 
 	// funkcja prywatna. Takze moglaby byc podpieta od razu do 'my',
 	// ale bez podpinania mozemy jej uzywac w obrebie tego obiektu
@@ -32,6 +32,11 @@ chromePainters.painter2d = function(spec) {
 		spec.context.lineCap = 'round';
 		spec.context.stroke();
 	};
+
+    var knockback = function(vect) {
+        my.xpos += vect.x;
+        my.ypos += vect.z;
+    }
 	
 	var turnLeft = function(angle) {
 		my.angle += angle;
@@ -55,5 +60,6 @@ chromePainters.painter2d = function(spec) {
 	that.setLineWidth = setLineWidth;
 	that.setOneColor = setOneColor;
 	that.setOwnColor = setOwnColor;
+    that.knockback = knockback;
 	return that;
 };

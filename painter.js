@@ -15,7 +15,7 @@ chromePainters.painter = function(spec) {
 	my.canvasSizeY = spec.canvasSizeY;
 	my.context = spec.context;
 	my.speed = 1;
-	
+
 	var init = function() {
 		my.model3d = new chromePainters.painter3d({
 			xpos: my.xpos,
@@ -25,7 +25,8 @@ chromePainters.painter = function(spec) {
 			scene: my.scene
 		});
 		my.model3d.init();
-	
+
+        that.collisionSphere = my.model3d.collisionSphere;
 		my.model2d = chromePainters.painter2d({
 			context: my.context,
 			xpos: -my.xpos,
@@ -41,6 +42,10 @@ chromePainters.painter = function(spec) {
 		my.model2d.goForward(step*my.speed);
 		my.model3d.goForward(step*my.speed);
 	};
+    var knockback = function(vect) {
+        my.model3d.knockback(vect);
+        my.model2d.knockback(vect);
+    }
 	
 	var turnLeft = function(angle) {
 		my.model3d.turnLeft(angle*my.speed);
@@ -65,10 +70,12 @@ chromePainters.painter = function(spec) {
 	
 	that.init = init;
 	that.goForward = goForward;
+    that.knockback = knockback;
 	that.turnLeft = turnLeft;
 	that.setLineWidth = setLineWidth;
 	that.setOneColor = setOneColor;
 	that.setSpeed = setSpeed;
 	that.setOwnColor = setOwnColor;
+
 	return that;
 };

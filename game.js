@@ -21,6 +21,7 @@ chromePainters.game = function(spec) {
 	my.audioManager;
 	my.statistics;
 	my.gui;
+    my.collisionManager;
 	
 	var init = function() {
 		
@@ -155,7 +156,13 @@ chromePainters.game = function(spec) {
 			}});
 		my.timer.start(1000, 5);
 		
-		my.audioManager.turnOnGameMusic();
+		//my.audioManager.turnOnGameMusic();
+
+        my.collisionManager = new chromePainters.collisionManager({
+            paintersManager: my.paintersManager,
+            gridSize: gridSize,
+            bonus: my.bonus
+        });
 	
 	};
 	
@@ -219,6 +226,8 @@ chromePainters.game = function(spec) {
 		my.paintersManager.steering();
 		my.controls.update();
 		my.stats.update();
+        my.collisionManager.collision();
+
 	};
 	
 	var render = function() {
