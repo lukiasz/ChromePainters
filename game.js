@@ -165,7 +165,8 @@ chromePainters.game = function(spec) {
         my.collisionManager = new chromePainters.collisionManager({
             paintersManager: my.paintersManager,
             gridSize: gridSize,
-            bonus: my.bonus
+            bonus: my.bonus,
+            audioManager: my.audioManager
         });
 	
 		var counter    = new SPARKS.SteadyCounter( 500 );

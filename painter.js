@@ -15,6 +15,7 @@ chromePainters.painter = function(spec) {
 	my.canvasSizeY = spec.canvasSizeY;
 	my.context = spec.context;
 	my.speed = 3;
+    my.hasBonus = false;
 
 	var init = function() {
 		my.model3d = new chromePainters.painter3d({
@@ -67,6 +68,13 @@ chromePainters.painter = function(spec) {
 	var setOwnColor = function() {
 		my.model2d.setOwnColor();
 	};
+
+    var setHasBonus = function(bool) {
+        my.hasBonus = bool;
+    }
+    var getHasBonus = function() {
+        return my.hasBonus;
+    }
 	
 	that.init = init;
 	that.goForward = goForward;
@@ -76,6 +84,9 @@ chromePainters.painter = function(spec) {
 	that.setOneColor = setOneColor;
 	that.setSpeed = setSpeed;
 	that.setOwnColor = setOwnColor;
+    that.setHasBonus = setHasBonus;
+    that.getHasBonus = getHasBonus;
+
 
 	return that;
 };
