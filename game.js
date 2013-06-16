@@ -160,7 +160,7 @@ chromePainters.game = function(spec) {
 			}});
 		my.timer.start(1000, 5);
 		
-		//my.audioManager.turnOnGameMusic();
+		my.audioManager.turnOnGameMusic();
 
         my.collisionManager = new chromePainters.collisionManager({
             paintersManager: my.paintersManager,
