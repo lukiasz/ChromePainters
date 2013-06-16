@@ -40,9 +40,49 @@ chromePainters.collisionManager = function(spec) {
                 var dist = painters[i].collisionSphere.radius + painters[j].collisionSphere.radius;
                 if(vect1.length() < dist) {
                     my.audioManager.playCollisionSound();
-                    if( painters[i].getHasBonus() || painters[j].getHasBonus() ) {
+                    if( painters[i].getHasBonus()) {
+						if(my.bonus.width === -1) {
+							my.paintersManager.setLineWidth({
+															index: i,
+															width: 40 });
+							}
+							else if(my.bonus.oneColor === -1) {
+								my.paintersManager.setOwnColor();
+							}
+							else if(my.bonus.speed === -1) {
+								my.paintersManager.setSpeed({
+															index: i,
+															speed: 4 });
+							}
+							else if(my.bonus.stopOthers === -1) {
+								my.paintersManager.setStopOthers({
+																startAll: i,
+																speed: 4 });
+							}
                         my.bonus.deactivateBonus();
                         painters[i].setHasBonus(false);
+                    }
+					 if( painters[j].getHasBonus()) {
+						if(my.bonus.width === -1) {
+							my.paintersManager.setLineWidth({
+															index: j,
+															width: 40 });
+							}
+							else if(my.bonus.oneColor === -1) {
+								my.paintersManager.setOwnColor();
+							}
+							else if(my.bonus.speed === -1) {
+								my.paintersManager.setSpeed({
+															index: j,
+															speed: 4 });
+							}
+							else if(my.bonus.stopOthers === -1) {
+								my.paintersManager.setStopOthers({
+																startAll: j,
+																speed: 4 });
+							}
+                        my.bonus.deactivateBonus();
+                        painters[j].setHasBonus(false);
                     }
                     painters[j].knockback(vect1);
                     painters[i].knockback(vect1.negate());

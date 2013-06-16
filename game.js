@@ -169,12 +169,12 @@ chromePainters.game = function(spec) {
             audioManager: my.audioManager
         });
 	
-		var counter    = new SPARKS.SteadyCounter( 500 );
-		var emitter   = new SPARKS.Emitter( counter );
+		//var counter    = new SPARKS.SteadyCounter( 500 );
+		//var emitter   = new SPARKS.Emitter( counter );
 		//emitter.addInitializer( new SPARKS.Position( new SPARKS.PointZone( new THREE.Vector3( 50, 19, 50 ) ) ) );
 		//emitter.addInitializer( new SPARKS.Lifetime( 1, 15 ));
-		emitter.start();
-		my.scene.add(emitter);
+		//emitter.start();
+		//my.scene.add(emitter);
 	};
 	
 	var animate = function() {
@@ -204,12 +204,12 @@ chromePainters.game = function(spec) {
 			else if(my.bonus.speed === -1) {
 				my.paintersManager.setSpeed({
 											index: my.indexOfPainter,
-											speed: 3 });
+											speed: 4 });
 			}
 			else if(my.bonus.stopOthers === -1) {
 				my.paintersManager.setStopOthers({
 												startAll: my.indexOfPainter,
-												speed: 3 });
+												speed: 4 });
 			}
 			my.bonus.deactivateBonus();
 			my.bonus.removeBonus();	//usuni�cie ze sceny
@@ -233,7 +233,7 @@ chromePainters.game = function(spec) {
 			else if(my.bonus.speed === 1) {
 				my.paintersManager.setSpeed({
 												index: painterIndex,
-												speed: 6 });
+												speed: 8 });
 				my.bonus.checkBonus();
 			}
 			else if(my.bonus.stopOthers === 1) {

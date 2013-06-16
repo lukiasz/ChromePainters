@@ -14,7 +14,7 @@ chromePainters.painter = function(spec) {
 	my.canvasSizeX = spec.canvasSizeX;
 	my.canvasSizeY = spec.canvasSizeY;
 	my.context = spec.context;
-	my.speed = 3;
+	my.speed = 4;
     my.hasBonus = false;
 
 	var init = function() {
