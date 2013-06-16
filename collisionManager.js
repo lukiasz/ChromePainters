@@ -36,6 +36,7 @@ chromePainters.collisionManager = function(spec) {
                 if(vect1.length() < dist) {
                     painters[j].knockback(vect1);
                     painters[i].knockback(vect1.negate());
+					
                 }
             }
         }

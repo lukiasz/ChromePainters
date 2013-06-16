@@ -168,6 +168,12 @@ chromePainters.game = function(spec) {
             bonus: my.bonus
         });
 	
+		var counter    = new SPARKS.SteadyCounter( 500 );
+		var emitter   = new SPARKS.Emitter( counter );
+		//emitter.addInitializer( new SPARKS.Position( new SPARKS.PointZone( new THREE.Vector3( 50, 19, 50 ) ) ) );
+		//emitter.addInitializer( new SPARKS.Lifetime( 1, 15 ));
+		emitter.start();
+		my.scene.add(emitter);
 	};
 	
 	var animate = function() {
@@ -181,6 +187,8 @@ chromePainters.game = function(spec) {
         // Jezeli zaszla kolizja pedzel-bonus zwraca index pedzla else -1.
         var painterIndex = my.collisionManager.bonusCollision();
 
+		
+					
 		if(my.timer.addBonus === 1) { 
 			my.timer.addBonus = 0;	
 			//deaktywacja poprzedniego bonusu
