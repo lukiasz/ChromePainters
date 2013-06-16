@@ -8,7 +8,7 @@ chromePainters.statistics.prototype.init = function() {
       this.context = this.canvas.getContext('2d');
 }
 
-chromePainters.statistics.prototype.getColorStats = function () {
+chromePainters.statistics.prototype.getColorStats = function (amountOfPlayers) {
     var imgd = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
     var pix = imgd.data;
     var statsTemp = [];
@@ -20,12 +20,17 @@ chromePainters.statistics.prototype.getColorStats = function () {
     }
     var full = (this.canvas.width) * (this.canvas.height) - (this.canvas.height - 1) * 2 - (this.canvas.width - 1) * 2;
     var iterator = 0;
+	var colors = ['255.0.0', '0.0.255', '0.128.0', '255.255.0'];
+	
     for (var key in statsTemp) {
         if (statsTemp.hasOwnProperty(key)) {
-            if (statsTemp[key] > 200) {
-                this.stats[iterator] = { color: key, percentage: statsTemp[key] * 100 / full };
-                iterator++;
-            }
+			for (var i =0;i<amountOfPlayers;i++)
+			{
+				if (key === colors[i]) {
+					this.stats[iterator] = { color: key, percentage: statsTemp[key] * 100 / full };
+					iterator++;
+				}
+			}
         }
     }
 

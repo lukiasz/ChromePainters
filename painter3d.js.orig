@@ -19,9 +19,13 @@ chromePainters.painter3d = function(spec) {
 		loader.load('./models/' + self.brushColor + 'Brush.dae', function (collada) {
 			var model = collada.scene;
 			model.scale.x = model.scale.y = model.scale.z = 4;
+<<<<<<< HEAD
 			model.position.set(self.xpos, 19, self.ypos);
+=======
+			model.position.set(self.xpos, 32, self.ypos);
 			model.material = new THREE.MeshPhongMaterial();
 			model.material.side = THREE.DoubleSide;
+>>>>>>> 54a4c7b3fc401554c040053627fbeb3c847e3b13
 			model.updateMatrix();
 			self.scene.add(model);
 			self.brush = model;

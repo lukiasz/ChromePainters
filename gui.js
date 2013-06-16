@@ -53,6 +53,9 @@ chromePainters.gui = function(game)
 					case "0.0.255":
 						color = "niebieski";
 						break;
+					case "255.255.0":
+						color = "zolty";
+						break;
 				}
 				$('#statystki .inside').append($("<p>Kolor <b>"+ color + "</b> posiada " + params[iterator].percentage.toFixed(3) +"% </p>"));
 			}

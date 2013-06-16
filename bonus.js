@@ -21,12 +21,12 @@ chromePainters.bonus = function(spec) {
 
 		loader.load('./models/gift.dae', function (collada) {
 			my.bonus = collada.scene;
-			my.bonus.doublesided = true;
+			//my.bonus.doublesided = true;
 			my.bonus.scale.x = my.bonus.scale.y = my.bonus.scale.z = 12;
 			my.bonus.position.set(50, 15, 50);
+			my.bonus.material = new THREE.MeshPhongMaterial();
+			my.bonus.material.side = THREE.DoubleSide;
 			my.bonus.updateMatrix();
-
-
 		});
 	};
 	
