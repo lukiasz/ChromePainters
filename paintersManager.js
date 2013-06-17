@@ -21,14 +21,14 @@ chromePainters.paintersManager = function(spec) {
 		my.keyboard = new THREEx.KeyboardState();	
         for (var i = 0; i < my.amount; i++) {
             var painterTemp = new chromePainters.painter({
-                xpos: Math.sin(i/my.amount*2*Math.PI)*my.gridSize/3,
-                ypos: Math.cos(i/my.amount*2*Math.PI)*my.gridSize/3,
-                angle: 0,
+                xpos: Math.sin(i/my.amount*2*Math.PI)*my.gridSize/5,
+                ypos: Math.cos(i/my.amount*2*Math.PI)*my.gridSize/5,
+                angle: i*2*Math.PI/my.amount,
                 color: colors[i],
                 scene: my.scene,
                 gridSizeX: my.gridSize,
                 gridSizeY: my.gridSize,
-				context: my.grid.context,
+				context: my.grid.context
             });
             painterTemp.init();
             my.painters[i] = painterTemp;

@@ -25,6 +25,7 @@ chromePainters.painter3d = function(spec) {
 			model.updateMatrix();
 			self.scene.add(model);
 			self.brush = model;
+            self.brush.rotation.y = my.angle;
 		});
 	};
 	
