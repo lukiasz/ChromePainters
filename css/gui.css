@@ -59,6 +59,10 @@
 	font-size: 0.8em;
 }
 
+.clickable{
+	cursor: pointer;
+}
+
 .painters{
 	margin: 0;
 }
