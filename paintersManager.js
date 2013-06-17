@@ -99,9 +99,8 @@ chromePainters.paintersManager = function(spec) {
 	
 	var setStopOthers = function(spec) {
 		var index = spec.index || 0;
-		var startAll = spec.startAll || 0;
 		for (var i = 0; i < my.amount; i++) {
-			if(i != index || startAll === 1) {
+			if(i != index) {
 				my.painters[i].setSpeed(spec.speed);
 			}
 		}
