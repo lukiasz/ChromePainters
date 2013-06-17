@@ -204,12 +204,12 @@ chromePainters.game = function(spec) {
 			else if(my.bonus.speed === -1) {
 				my.paintersManager.setSpeed({
 											index: my.indexOfPainter,
-											speed: 4 });
+											speed: 1 });
 			}
 			else if(my.bonus.stopOthers === -1) {
 				my.paintersManager.setStopOthers({
 												startAll: my.indexOfPainter,
-												speed: 4 });
+												speed: 1 });
 			}
 			my.bonus.deactivateBonus();
 			my.bonus.removeBonus();	//usuni�cie ze sceny
@@ -233,7 +233,7 @@ chromePainters.game = function(spec) {
 			else if(my.bonus.speed === 1) {
 				my.paintersManager.setSpeed({
 												index: painterIndex,
-												speed: 8 });
+												speed: 3 });
 				my.bonus.checkBonus();
 			}
 			else if(my.bonus.stopOthers === 1) {
