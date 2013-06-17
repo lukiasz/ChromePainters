@@ -214,7 +214,7 @@ chromePainters.game = function(spec) {
 			}
 			else if(my.bonus.stopOthers === -1) {
 				my.paintersManager.setStopOthers({
-												startAll: my.indexOfPainter,
+												index: my.indexOfPainter,
 												speed: 1 });
 			}
 			my.bonus.deactivateBonus();
