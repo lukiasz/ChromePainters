@@ -30,7 +30,7 @@ chromePainters.timer = function(spec) {
 		that.progress += 1;
 		my.elem.innerHTML = "[";
 		for (var i = 0; i < that.progress; ++i) {
-			if (i % 10 === 9) {
+			if (i % 20 === 19) {
 				my.elem.innerHTML += "_";
 			}	
 			else {
@@ -44,7 +44,7 @@ chromePainters.timer = function(spec) {
 		}
 		my.elem.innerHTML += "]";
 		
-		if((that.progress-1) % 10 === 9) {
+		if((that.progress-1) % 20 === 19) {
 			that.addBonus=1;
 		}
 			
