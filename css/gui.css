@@ -26,16 +26,13 @@
 		padding: 20px;
 	}
 		#gui ul li {
-			cursor: pointer;
 			list-style: none;
 			text-align: center;
 			font-size: 24px;
 			font-family: verdana;
-			margin-bottom: 15px;
-			height: 26px;
 		}
 			#gui ul li:hover {
-				font-size:26px;
+				font-size:24px;
 			}
 			
 #autorzy {
@@ -57,6 +54,30 @@
     border: 1px solid black;
     padding: 20px;
 }		
+
+.smallerText{
+	font-size: 0.8em;
+}
+
+.painters{
+	margin: 0;
+}
+.painter{
+	width:  50px;
+	height: 51px;
+	display: inline-block;
+	/*background: url(../images/brush-icon.png);*/
+}
+
+	.painter.selected{
+		background-position: 0px 51px;
+	}
+	
+	.painter:hover{
+		background-position: 0px 51px;
+		color:red;
+		cursor: pointer;
+	}
 
 .hidden{
 	display: none;
