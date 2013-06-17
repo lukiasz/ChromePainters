@@ -98,7 +98,12 @@ chromePainters.game = function(spec) {
 		my.light.init();
 
 		// T�o
-		var bgTexture = THREE.ImageUtils.loadTexture("images/background.jpg");
+		if (Math.random() > 0.5) {
+			var bgTexture = THREE.ImageUtils.loadTexture("images/background.jpg");
+		}
+		else {
+			var bgTexture = THREE.ImageUtils.loadTexture("images/background2.jpg");
+		}
 		my.background = new THREE.Mesh(
 			new THREE.PlaneGeometry(2, 2, 0),
 			new THREE.MeshBasicMaterial({map: bgTexture})
