@@ -38,27 +38,27 @@ chromePainters.paintersManager = function(spec) {
 	var steering = function() {
 		var steeringKeys = [['W', 'A', 'S', 'D'], ["I", "J", "K", "L"], ["up", "left", "down", "right"],["keyUp", "keyLeft", "keyDown", "keyRight"]];
         var delta = my.clock.getDelta();
-        var moveDistance = 200 * delta; // 200 pixels per second
-        var rotateAngle = Math.PI / 1.5 * delta; // pi/2 radians (90 degrees) per second
+        var moveDistance = 30 * delta; // 30 pixels per second
+        var rotateAngle = Math.PI / 2 * delta; // pi/2 radians (90 degrees) per second
         var j = 0;
 
 		for (var i = 0; i < my.amount; i++) {
 
 			if (my.keyboard.pressed(steeringKeys[i][0])) { //up
-				my.painters[i].goForward(1, my.grid.context);
+				my.painters[i].goForward(moveDistance, my.grid.context);
 			}
 			if (my.keyboard.pressed(steeringKeys[i][2])) { //down
-				my.painters[i].goForward(-1, my.grid.context);
+				my.painters[i].goForward(-moveDistance, my.grid.context);
 			}
 
 			// rotate left/right/up/down
 			var rotation_matrix = new THREE.Matrix4().identity();
 			if (my.keyboard.pressed(steeringKeys[i][1])) { //left
-				my.painters[i].turnLeft(0.1);
+				my.painters[i].turnLeft(rotateAngle);
 				rotation_matrix = new THREE.Matrix4().makeRotationY(rotateAngle);
 			}
 			if (my.keyboard.pressed(steeringKeys[i][3])) { //right
-				my.painters[i].turnLeft(-0.1);
+				my.painters[i].turnLeft(-rotateAngle);
 				rotation_matrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
 			}
 
