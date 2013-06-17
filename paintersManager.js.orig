@@ -21,14 +21,18 @@ chromePainters.paintersManager = function(spec) {
 		my.keyboard = new THREEx.KeyboardState();	
         for (var i = 0; i < my.amount; i++) {
             var painterTemp = new chromePainters.painter({
-                xpos: Math.sin(i/my.amount*2*Math.PI)*my.gridSize/3,
-                ypos: Math.cos(i/my.amount*2*Math.PI)*my.gridSize/3,
-                angle: 0,
+                xpos: Math.sin(i/my.amount*2*Math.PI)*my.gridSize/5,
+                ypos: Math.cos(i/my.amount*2*Math.PI)*my.gridSize/5,
+<<<<<<< HEAD
+                angle: i*2*Math.PI/my.amount,
+=======
+                angle: i*Math.PI/2,
+>>>>>>> e482cacb8c2c765faa380e35437b8fb54a5930bb
                 color: colors[i],
                 scene: my.scene,
                 gridSizeX: my.gridSize,
                 gridSizeY: my.gridSize,
-				context: my.grid.context,
+				context: my.grid.context
             });
             painterTemp.init();
             my.painters[i] = painterTemp;
@@ -38,27 +42,18 @@ chromePainters.paintersManager = function(spec) {
 	var steering = function() {
 		var steeringKeys = [['W', 'A', 'S', 'D'], ["I", "J", "K", "L"], ["up", "left", "down", "right"],["keyUp", "keyLeft", "keyDown", "keyRight"]];
         var delta = my.clock.getDelta();
-        var moveDistance = 30 * delta; // 30 pixels per second
-        var rotateAngle = Math.PI / 2 * delta; // pi/2 radians (90 degrees) per second
+        var moveDistance = 100 * delta; // 30 pixels per second
+        var rotateAngle = Math.PI  * delta; // pi/2 radians (90 degrees) per second
         var j = 0;
 
 		for (var i = 0; i < my.amount; i++) {
 
-<<<<<<< HEAD
-			if (my.keyboard.pressed(steeringKeys[i][0])) { //up
-				my.painters[i].goForward(moveDistance, my.grid.context);
-			}
-			if (my.keyboard.pressed(steeringKeys[i][2])) { //down
-				my.painters[i].goForward(-moveDistance, my.grid.context);
-			}
-=======
 			//if (my.keyboard.pressed(steeringKeys[i][0])) { //up
-				my.painters[i].goForward(1, my.grid.context);
+				my.painters[i].goForward(moveDistance, my.grid.context);
 			//}
 			//if (my.keyboard.pressed(steeringKeys[i][2])) { //down
 			//	my.painters[i].goForward(-1, my.grid.context);
 			//}
->>>>>>> 833c652c2d8da65f3ed81092dcdbb9698bd9ad62
 
 			// rotate left/right/up/down
 			var rotation_matrix = new THREE.Matrix4().identity();
