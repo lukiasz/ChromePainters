@@ -38,8 +38,8 @@ chromePainters.paintersManager = function(spec) {
 	var steering = function() {
 		var steeringKeys = [['W', 'A', 'S', 'D'], ["I", "J", "K", "L"], ["up", "left", "down", "right"],["keyUp", "keyLeft", "keyDown", "keyRight"]];
         var delta = my.clock.getDelta();
-        var moveDistance = 30 * delta; // 30 pixels per second
-        var rotateAngle = Math.PI / 2 * delta; // pi/2 radians (90 degrees) per second
+        var moveDistance = 100 * delta; // 30 pixels per second
+        var rotateAngle = Math.PI  * delta; // pi/2 radians (90 degrees) per second
         var j = 0;
 
 		for (var i = 0; i < my.amount; i++) {

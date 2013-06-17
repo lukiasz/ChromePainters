@@ -19,7 +19,7 @@ chromePainters.collisionManager = function(spec) {
         var distVect = new THREE.Vector3(0,0,0);
         for( var i = 0; i < my.paintersManager.getPaintersCount(); i++) {
             distVect.subVectors(bonusVect,painters[i].collisionSphere.center);
-            var lenghttt = distVect.length();
+            var lenghttt = distVect.length()/2;
             if (lenghttt < painters[i].collisionSphere.radius) {
                 my.audioManager.playBonusSound();
                 painters[i].setHasBonus(true);
