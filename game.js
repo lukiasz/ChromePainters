@@ -47,8 +47,8 @@ chromePainters.game = function(spec) {
 		
 		my.camera = new Camera({
 			x: 0,
-			y: 900,
-			z: -100,
+			y: 500,
+			z: -500,
 			viewAngle: VIEW_ANGLE,
 			aspect: ASPECT,
 			near: NEAR,
@@ -163,7 +163,7 @@ chromePainters.game = function(spec) {
 			my.audioManager.playEndSound();
 			setTimeout(my.audioManager.turnOnMenuMusic,5000);
 			}});
-		my.timer.start(1000, 5);
+		my.timer.start(2000, 10);
 		
 		my.audioManager.turnOnGameMusic();
 
@@ -184,6 +184,7 @@ chromePainters.game = function(spec) {
 	
 	var animate = function() {
 		requestAnimationFrame(animate);
+		my.camera.update();
 		my.grid3d.refresh();
 		render();
 		update();
