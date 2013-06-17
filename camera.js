@@ -24,3 +24,12 @@ Camera.prototype.setPosition = function (x,y,z) {
     this.camera.position.set(this.x, this.y, this.z);
     this.camera.lookAt(this.scene.position);
 	}
+	
+Camera.prototype.update = function () {
+	var pos = new Date().getTime();
+	this.x = this.x + Math.cos(pos/5000.0) * 0.2;// * 0.5;
+	this.y = this.y + Math.sin(pos/7000.0) * 0.2;
+	this.z = this.z + Math.cos(pos/3000.0) * 0.2;// * 0.5;
+    this.camera.position.set(this.x, this.y, this.z);
+    this.camera.lookAt(this.scene.position);
+	}

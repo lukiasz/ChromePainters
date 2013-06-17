@@ -47,8 +47,8 @@ chromePainters.game = function(spec) {
 		
 		my.camera = new Camera({
 			x: 0,
-			y: 900,
-			z: -100,
+			y: 500,
+			z: -500,
 			viewAngle: VIEW_ANGLE,
 			aspect: ASPECT,
 			near: NEAR,
@@ -98,7 +98,12 @@ chromePainters.game = function(spec) {
 		my.light.init();
 
 		// T�o
-		var bgTexture = THREE.ImageUtils.loadTexture("images/background.jpg");
+		if (Math.random() > 0.5) {
+			var bgTexture = THREE.ImageUtils.loadTexture("images/background.jpg");
+		}
+		else {
+			var bgTexture = THREE.ImageUtils.loadTexture("images/background2.jpg");
+		}
 		my.background = new THREE.Mesh(
 			new THREE.PlaneGeometry(2, 2, 0),
 			new THREE.MeshBasicMaterial({map: bgTexture})
@@ -158,7 +163,7 @@ chromePainters.game = function(spec) {
 			my.audioManager.playEndSound();
 			setTimeout(my.audioManager.turnOnMenuMusic,5000);
 			}});
-		my.timer.start(1000, 5);
+		my.timer.start(2000, 10);
 		
 		my.audioManager.turnOnGameMusic();
 
@@ -179,6 +184,7 @@ chromePainters.game = function(spec) {
 	
 	var animate = function() {
 		requestAnimationFrame(animate);
+		my.camera.update();
 		my.grid3d.refresh();
 		render();
 		update();
@@ -204,12 +210,12 @@ chromePainters.game = function(spec) {
 			else if(my.bonus.speed === -1) {
 				my.paintersManager.setSpeed({
 											index: my.indexOfPainter,
-											speed: 4 });
+											speed: 1 });
 			}
 			else if(my.bonus.stopOthers === -1) {
 				my.paintersManager.setStopOthers({
 												startAll: my.indexOfPainter,
-												speed: 4 });
+												speed: 1 });
 			}
 			my.bonus.deactivateBonus();
 			my.bonus.removeBonus();	//usuni�cie ze sceny
@@ -233,7 +239,7 @@ chromePainters.game = function(spec) {
 			else if(my.bonus.speed === 1) {
 				my.paintersManager.setSpeed({
 												index: painterIndex,
-												speed: 8 });
+												speed: 3 });
 				my.bonus.checkBonus();
 			}
 			else if(my.bonus.stopOthers === 1) {

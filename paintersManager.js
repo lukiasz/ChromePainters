@@ -44,12 +44,12 @@ chromePainters.paintersManager = function(spec) {
 
 		for (var i = 0; i < my.amount; i++) {
 
-			if (my.keyboard.pressed(steeringKeys[i][0])) { //up
+			//if (my.keyboard.pressed(steeringKeys[i][0])) { //up
 				my.painters[i].goForward(moveDistance, my.grid.context);
-			}
-			if (my.keyboard.pressed(steeringKeys[i][2])) { //down
-				my.painters[i].goForward(-moveDistance, my.grid.context);
-			}
+			//}
+			//if (my.keyboard.pressed(steeringKeys[i][2])) { //down
+			//	my.painters[i].goForward(-1, my.grid.context);
+			//}
 
 			// rotate left/right/up/down
 			var rotation_matrix = new THREE.Matrix4().identity();

@@ -2,6 +2,7 @@ function Grid(param) {
 	param = param || {};
 	this.scene = param.scene || {};
 	this.sizex = param.sizex ;
+	this.refreshCounter = 0;
 	// oœ "Y" w canvasie to oœ "Z" w œwiecie 
 	this.sizey = param.sizey ;
 	}
@@ -82,5 +83,5 @@ function Grid(param) {
 	}
 	
 	Grid.prototype.refresh = function() {
-		this.texture.needsUpdate = true;
+		this.texture.needsUpdate = (this.refreshCounter++ % 2) == 0; 
 	}

@@ -52,12 +52,12 @@ chromePainters.collisionManager = function(spec) {
 							else if(my.bonus.speed === -1) {
 								my.paintersManager.setSpeed({
 															index: i,
-															speed: 4 });
+															speed: 1 });
 							}
 							else if(my.bonus.stopOthers === -1) {
 								my.paintersManager.setStopOthers({
 																startAll: i,
-																speed: 4 });
+																speed: 1 });
 							}
                         my.bonus.deactivateBonus();
                         painters[i].setHasBonus(false);
@@ -74,12 +74,12 @@ chromePainters.collisionManager = function(spec) {
 							else if(my.bonus.speed === -1) {
 								my.paintersManager.setSpeed({
 															index: j,
-															speed: 4 });
+															speed:1 });
 							}
 							else if(my.bonus.stopOthers === -1) {
 								my.paintersManager.setStopOthers({
 																startAll: j,
-																speed: 4 });
+																speed: 1 });
 							}
                         my.bonus.deactivateBonus();
                         painters[j].setHasBonus(false);
